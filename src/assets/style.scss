@@ -1,0 +1,36 @@
+@charset "utf-8";
+// @import "../../node_modules/bulma/bulma.sass";
+
+// Import what you need
+@import "../../node_modules/bulma/sass/base/_all.sass";
+@import "../../node_modules/bulma/sass/components/_all.sass";
+@import "../../node_modules/bulma/sass/elements/_all.sass";
+@import "../../node_modules/bulma/sass/form/_all.sass";
+@import "../../node_modules/bulma/sass/grid/_all.sass";
+@import "../../node_modules/bulma/sass/helpers/_all.sass";
+@import "../../node_modules/bulma/sass/layout/_all.sass";
+@import "../../node_modules/bulma/sass/utilities/_all.sass";
+
+@import url('https://fonts.googleapis.com/css2?family=Fredoka&display=swap');
+
+// New colors
+$red: #ff5e79;
+$orange1: #ff7161;
+$orange2: #ff8844;
+$yellow: #ff9c2b;
+$black: #393737;
+
+
+// Update Bulma's global variables
+$family-sans-serif: 'Fredoka', sans-serif;
+$primary: $yellow;
+$link: $red;
+$widescreen-enabled: false;
+$fullhd-enabled: false;
+
+// Update some of Bulma's component variables
+$body-background-color: $white-ter;
+$control-border-width: 2px;
+$input-border-color: transparent;
+$input-shadow: none;
+
