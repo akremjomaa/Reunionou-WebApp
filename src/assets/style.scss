@@ -1,15 +1,6 @@
 @charset "utf-8";
-// @import "../../node_modules/bulma/bulma.sass";
 
-// Import what you need
-@import "../../node_modules/bulma/sass/base/_all.sass";
-@import "../../node_modules/bulma/sass/components/_all.sass";
-@import "../../node_modules/bulma/sass/elements/_all.sass";
-@import "../../node_modules/bulma/sass/form/_all.sass";
-@import "../../node_modules/bulma/sass/grid/_all.sass";
-@import "../../node_modules/bulma/sass/helpers/_all.sass";
-@import "../../node_modules/bulma/sass/layout/_all.sass";
-@import "../../node_modules/bulma/sass/utilities/_all.sass";
+@import "../../node_modules/bulma/bulma.sass";
 
 @import url('https://fonts.googleapis.com/css2?family=Fredoka&display=swap');
 
@@ -25,12 +16,17 @@ $black: #393737;
 $family-sans-serif: 'Fredoka', sans-serif;
 $primary: $yellow;
 $link: $red;
-$widescreen-enabled: false;
-$fullhd-enabled: false;
 
 // Update some of Bulma's component variables
 $body-background-color: $white-ter;
-$control-border-width: 2px;
-$input-border-color: transparent;
-$input-shadow: none;
 
+.navbar{
+    align-items: center;
+}
+.buttons:not(:last-child), .buttons:last-child, .buttons .button{
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.navbar-item img{
+    max-height: none;
+}
