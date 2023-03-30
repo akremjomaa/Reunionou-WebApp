@@ -7884,3 +7884,6 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
 .buttons:not(:last-child), .buttons:last-child, .buttons .button {
   margin-top: 0;
   margin-bottom: 0; }
+
+.button-form {
+  margin: 1rem auto; }

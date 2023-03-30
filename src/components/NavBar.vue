@@ -7,7 +7,7 @@ const state = reactive({
 </script>
 
 <template>
-  <nav v-if="$route.path !== '/DisplayDevice'" class="navbar" role="navigation" aria-label="main navigation">
+  <nav v-if="$route.path !== '/DisplayDevice'" class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <router-link to="/" class="navbar-item">
         <img src="/logo.png" alt="logo" width="35" height="35">
