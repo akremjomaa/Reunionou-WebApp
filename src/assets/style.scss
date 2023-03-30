@@ -1,7 +1,5 @@
 @charset "utf-8";
 
-@import "../../node_modules/bulma/bulma.sass";
-
 @import url('https://fonts.googleapis.com/css2?family=Fredoka&display=swap');
 
 // New colors
@@ -14,19 +12,19 @@ $black: #393737;
 
 // Update Bulma's global variables
 $family-sans-serif: 'Fredoka', sans-serif;
-$primary: $yellow;
+$primary: $orange1;
 $link: $red;
+$text: $black;
 
-// Update some of Bulma's component variables
-$body-background-color: $white-ter;
+$navbar-item-img-max-height: none;
+
+@import "../../node_modules/bulma/bulma.sass";
 
 .navbar{
     align-items: center;
+    box-shadow: 0 0 5px;
 }
 .buttons:not(:last-child), .buttons:last-child, .buttons .button{
     margin-top: 0;
     margin-bottom: 0;
-}
-.navbar-item img{
-    max-height: none;
 }

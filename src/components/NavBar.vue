@@ -1,21 +1,25 @@
 <script setup>
+import { reactive } from 'vue'
 
+const state = reactive({
+    menuOuvert: false
+});
 </script>
 
 <template>
-  <nav v-if="$route.path !== '/DisplayDevice'" class="navbar pl-4 pr-4" role="navigation" aria-label="main navigation">
+  <nav v-if="$route.path !== '/DisplayDevice'" class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <router-link to="/" class="navbar-item">
         <img src="/logo.png" alt="logo" width="35" height="35">
       </router-link>
-      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" @click="state.menuOuvert=!state.menuOuvert">
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
       </a>
     </div>
 
-    <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-menu" :class="{'is-active':state.menuOuvert}">
       <div class="navbar-start">
         <router-link to="/" class="navbar-item">
           Mes évènements
@@ -44,7 +48,7 @@
           <!--Navbar utilisateur déconnecté-->
 
           <div class="buttons">
-            <router-link to="/" class="button is-primary">
+            <router-link to="/createAccount" class="button is-primary">
               <strong>S'inscrire</strong>
             </router-link>
             <router-link to="/" class="button is-light">
