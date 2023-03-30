@@ -16,7 +16,12 @@ const router = createRouter({
     {
       path: '/user/:id',
       name: 'user',
-      component: () => import('../views/UserProfile.vue'),
+      component: () => import('../views/UserProfileView.vue'),
+    },
+    {
+      path: '/user/update/:id',
+      name: 'update-user',
+      component: () => import('../views/UpdateUserProfileView.vue'),
     },
     {
       path: '/event/:id',
