@@ -27,7 +27,7 @@ async function getUser(){
     <div>
         <h1> Bonjour Madame/Monsieur {{state.member.firstname}} {{state.member.lastname}}  </h1>
         <h2> Votre Adresse mail : {{state.member.email}}</h2>
-        <button>Modifier votre compte </button>
+        <button><router-link :to="`/user/update/${state.member.id}`">Modifier votre compte</router-link></button>
     </div>
 </main>
 </template>
