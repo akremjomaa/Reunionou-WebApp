@@ -3,24 +3,45 @@
 import {onMounted, reactive} from "vue";
 import {useRoute} from "vue-router";
 import axios from "axios";
+import router from "../router";
 
 const route = useRoute();
-const state = reactive({
-    member: {},
+let member = reactive({
+    id: {},
+    lastname: '',
+    firstname: '',
+    email: '',
+    password: '',
+    status: ''
 })
 
 onMounted(() => {
     console.log("user profile");
-getUser()
+    getUser()
 });
 
-async function getUser(){
-    await axios.get(`https://api.reunionou.local:19043/users/${route.params.id}`).then(response =>{
-        state.member = response.data.user;
-        console.log(state.member)
-
+async function getUser() {
+    await axios.get(`https://api.reunionou.local:19043/users/${route.params.id}`).then(response => {
+        console.log(response.data.user);
+        member.id = response.data.user.id;
+        member.lastname = response.data.user.lastname;
+        member.firstname = response.data.user.firstname;
+        member.email = response.data.user.email;
+        member.password = response.data.user.password;
+        member.status = response.data.user.status;
     })
 }
+
+async function deleteAccount() {
+    if (confirm("Voulez-vous vraiment supprimer votre compte ?")) {
+        axios.delete(`https://api.reunionou.local:19043/users/${member.id}`).catch((error) => {
+            console.log(error);
+        }).then(async () => {
+            await router.push('/');
+        })
+    }
+}
+
 </script>
 
 <template>
@@ -33,6 +54,7 @@ async function getUser(){
     </div>
     <div class="is-flex is-justify-content-center">
         <router-link class="button is-link" :to="`/user/update/${state.member.id}`">Modifier votre compte</router-link>
+        <button class="button is-link" @click="deleteAccount">Supprimer votre compte</button>
     </div>
 </section>
 </template>
