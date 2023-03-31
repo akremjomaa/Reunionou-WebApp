@@ -7,10 +7,10 @@ const state = reactive({
 </script>
 
 <template>
-  <nav v-if="$route.path !== '/DisplayDevice'" class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
+  <nav v-if="$route.path !== '/DisplayDevice'" class="navbar is-fixed-top is-align-items-center" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand is-align-items-center">
       <router-link to="/" class="navbar-item">
-        <img src="/logo.png" alt="logo" width="35" height="35">
+        <img src="/logo.png" alt="logo" width="40" height="40">
       </router-link>
       <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" @click="state.menuOuvert=!state.menuOuvert">
         <span aria-hidden="true"></span>
@@ -32,8 +32,8 @@ const state = reactive({
       <div class="navbar-end">
         <div class="navbar-item">
           <!--Navbar utilisateur connecté-->
-          <div class="buttons">
-            <router-link to="/">
+          <div class="buttons my-0">
+            <router-link to="/user/2">
               <span class="icon is-large">
                 <i class="fas fa-2x fa-user"></i>
               </span>
@@ -47,11 +47,11 @@ const state = reactive({
           
           <!--Navbar utilisateur déconnecté-->
 
-          <div class="buttons">
-            <router-link to="/createAccount" class="button is-primary">
+          <div class="buttons my-0">
+            <router-link to="/createAccount" class="button is-primary my-0">
               <strong>S'inscrire</strong>
             </router-link>
-            <router-link to="/" class="button is-light">
+            <router-link to="/" class="button is-light my-0">
               Se connecter
             </router-link>
           </div>

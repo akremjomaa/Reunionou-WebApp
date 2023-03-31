@@ -22,14 +22,19 @@ async function getUser(){
     })
 }
 </script>
+
 <template>
-<main>
-    <div>
-        <h1> Bonjour Madame/Monsieur {{state.member.firstname}} {{state.member.lastname}}  </h1>
-        <h2> Votre Adresse mail : {{state.member.email}}</h2>
-        <button><router-link :to="`/user/update/${state.member.id}`">Modifier votre compte</router-link></button>
+<section class="column pt-6 is-8 is-offset-2">
+    <h1 class="title is-2 has-text-centered">Votre profil</h1>
+    <div class="box">
+        <p class="mb-4"><strong>Votre nom :</strong> {{state.member.lastname}}</p>
+        <p class="mb-4"><strong>Votre prénom :</strong> {{state.member.firstname}}</p>
+        <p class="mb-4"><strong>Votre adresse mail :</strong> {{state.member.email}}</p>        
     </div>
-</main>
+    <div class="is-flex is-justify-content-center">
+        <router-link class="button is-link" :to="`/user/update/${state.member.id}`">Modifier votre compte</router-link>
+    </div>
+</section>
 </template>
 <style scoped>
 

@@ -13,21 +13,13 @@ $black: #393737;
 // Update Bulma's global variables
 $family-sans-serif: 'Fredoka', sans-serif;
 $primary: $orange1;
-$link: $red;
+$link: $orange1;
 $text: $black;
-
+$box-radius: 12px;
 $navbar-item-img-max-height: none;
 
 @import "../../node_modules/bulma/bulma.sass";
 
 .navbar{
-    align-items: center;
     box-shadow: 0 0 5px;
-}
-.buttons:not(:last-child), .buttons:last-child, .buttons .button{
-    margin-top: 0;
-    margin-bottom: 0;
-}
-.button-form{
-    margin: 1rem auto;
 }

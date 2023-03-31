@@ -42,10 +42,9 @@ async function validationFormulaire() {
 </script>
 
 <template>
-    <section class="column is-8 is-offset-2">
-        <h1 class="title is-2 has-text-centered">Bienvenue à Reunionou</h1>
-        <h2 class="title is-3 has-text-centered">Créer un compte</h2>
-        <form @submit.prevent="validationFormulaire">
+    <section class="column pt-6 is-8 is-offset-2">
+        <h1 class="title is-2 has-text-centered">Créer un compte</h1>
+        <form @submit.prevent="validationFormulaire" class="box">
             <div class="field">
                 <label class="label">Nom</label>
                 <div class="control">
@@ -82,8 +81,8 @@ async function validationFormulaire() {
                         placeholder="Répeter votre Mot de passe ici">
                 </div>
             </div>
-            <div class="field is-grouped container">
-                <div class="control button-form">
+            <div class="field">
+                <div class="control is-flex is-justify-content-center mt-4">
                     <button class="button is-link" type="submit">Créer votre compte </button>
                 </div>
             </div>
