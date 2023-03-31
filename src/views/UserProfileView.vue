@@ -48,13 +48,13 @@ async function deleteAccount() {
 <section class="column pt-6 is-8 is-offset-2">
     <h1 class="title is-2 has-text-centered">Votre profil</h1>
     <div class="box">
-        <p class="mb-4"><strong>Votre nom :</strong> {{state.member.lastname}}</p>
-        <p class="mb-4"><strong>Votre prénom :</strong> {{state.member.firstname}}</p>
-        <p class="mb-4"><strong>Votre adresse mail :</strong> {{state.member.email}}</p>        
+        <p class="mb-4"><strong>Votre nom :</strong> {{member.lastname}}</p>
+        <p class="mb-4"><strong>Votre prénom :</strong> {{member.firstname}}</p>
+        <p class="mb-4"><strong>Votre adresse mail :</strong> {{member.email}}</p>        
     </div>
-    <div class="is-flex is-justify-content-center">
-        <router-link class="button is-link" :to="`/user/update/${state.member.id}`">Modifier votre compte</router-link>
-        <button class="button is-link" @click="deleteAccount">Supprimer votre compte</button>
+    <div class="is-flex is-flex-direction-column is-align-items-center">
+        <router-link class="button is-link" :to="`/user/update/${member.id}`">Modifier votre compte</router-link>
+        <button class="button is-light" @click="deleteAccount">Supprimer votre compte</button>
     </div>
 </section>
 </template>
