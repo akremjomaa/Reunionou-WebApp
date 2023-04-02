@@ -23,12 +23,12 @@ function start() {
 
 <template>
   <NavBar/>
-  <section class="section">
+  <main class="section">
     <template v-if="state.appReady">
 
       <RouterView/>
     </template>
-  </section>
+  </main>
 </template>
 
 <style scoped>
