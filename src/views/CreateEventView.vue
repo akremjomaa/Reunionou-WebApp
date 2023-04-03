@@ -53,10 +53,8 @@ export default {
         onSelectChange(event) {
             this.selected = event.target.value;
         },
-        onMapClick(event) {
-            const lat = event.originalEvent.latlng.lat;
-            const lng = event.originalEvent.latlng.lng;
-            console.log(`Map clicked at: (${lat}, ${lng})`);
+        onMapClick(e) {
+           console.log(e);
         }
     }
 };
