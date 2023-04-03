@@ -30,21 +30,19 @@ async function getComments(){
 </script>
 
 <template>
-    <main>
-        <div>
-            <hr>
-            <h2> List des commentaires : {{count}}</h2>
-            <hr>
+        <div class="box">
+            <h2 class="subtitle is-4">Commentaires ({{count}})</h2>
 
-            <button>ajouter un commentaire</button>
+            <button class="button is-link mb-3">Ajouter un commentaire</button>
             <template v-for="comment in commentList" :key="comment.id">
+                <div class="my-3">
+                    <h3 v-if="comment.user_name === null"><strong>{{comment.invited_name}} {{comment.invited_firstName}}</strong> a dit :</h3>
+                    <h3 v-else><strong>{{comment.user_name}}</strong> a dit :</h3>
+                    <p class="pl-3">{{comment.content}}</p>
+                </div>
 
-                <div v-if="comment.user_name === null"> {{comment.invited_name}} {{comment.invited_firstName}}</div>
-                  <div v-else> {{comment.user_name}}</div>
-                <div>contenu de commentaire : {{comment.content}}</div>
             </template>
         </div>
-    </main>
 </template>
 <style scoped>
 
