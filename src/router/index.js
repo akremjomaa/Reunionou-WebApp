@@ -24,6 +24,21 @@ const router = createRouter({
       component: () => import('../views/UpdateUserProfileView.vue'),
     },
     {
+      path: '/user/:id/invitations',
+      name: 'userInvitations',
+      component: () => import('../views/UserInvitationsListView.vue'),
+    },
+    {
+      path: '/user/:id/events',
+      name: 'userEvents',
+      component: () => import('../views/UserEventsListView.vue'),
+    },
+    {
+      path: '/event/:id/invite',
+      name: 'invite',
+      component: () => import('../views/InviteVue.vue'),
+    },
+    {
       path: '/event/:id',
       name: 'event',
       component: () => import('../views/OneEventView.vue'),

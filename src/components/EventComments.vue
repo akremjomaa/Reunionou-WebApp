@@ -4,6 +4,7 @@ import {useRoute} from "vue-router";
 import {onMounted} from "vue";
 import axios from "axios";
 import {ref} from "@vue/reactivity";
+import {BASE} from "../../public/config";
 
 const route = useRoute();
 const commentList = ref([]);
@@ -11,12 +12,12 @@ const count = ref(0);
 
 onMounted(() => {
     console.log("Liste des commentaires d'un évenement");
-    getInvitations()
+    getComments()
 
 });
 
-async function getInvitations(){
-    await axios.get(`https://api.reunionou.local:19043/events/${route.params.id}/comments`).then(response =>{
+async function getComments(){
+    await axios.get(`${BASE}/events/${route.params.id}/comments`).then(response =>{
         console.log(response.data)
         commentList.value= response.data.comments;
         count.value = response.data.count;
@@ -31,7 +32,10 @@ async function getInvitations(){
 <template>
     <main>
         <div>
+            <hr>
             <h2> List des commentaires : {{count}}</h2>
+            <hr>
+
             <button>ajouter un commentaire</button>
             <template v-for="comment in commentList" :key="comment.id">
 
