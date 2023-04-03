@@ -89,7 +89,7 @@ async function validationFormulaire() {
             </div>
         </form>
         <div>
-            <p>Vous avez deja un compte ?</p><router-link to="/connect">Connexion</router-link>
+            <p>Vous avez deja un compte ?</p><router-link to="/connexion">Connexion</router-link>
         </div>
 
     </main>

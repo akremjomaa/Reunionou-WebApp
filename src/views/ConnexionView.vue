@@ -21,7 +21,7 @@
             <button type="submit">Connexion</button>
 
             <button>
-                <router-link :to="`/createAccount`">Créer un compte ?</router-link>
+                <router-link :to="`/inscription`">Créer un compte ?</router-link>
             </button>
         </form>
     </div>
