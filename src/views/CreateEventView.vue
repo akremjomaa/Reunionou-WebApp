@@ -49,50 +49,50 @@ export default {
 </script>
 
 <template>
-    <main>
-        <div>
-            <div><h1>Créer un évènement</h1></div>
-            <form action="">
-                <div>
-                    <label>Titre</label>
-                    <div>
-                        <input class="input" required="required" placeholder="Titre">
+        <section class="column pt-6 is-10-tablet is-offset-1-tablet is-8-widescreen is-offset-2-widescreen">
+            <h1 class="title is-2 has-text-centered">Créer un évènement</h1>
+            <form action="" class="box">
+                <div class="field">
+                    <label class="label">Titre</label>
+                    <div class="control">
+                        <input class="input" required="required" placeholder="Votre titre">
                     </div>
                 </div>
-                <div>
-                    <label>Description</label>
-                    <div>
-                        <input class="input" required="required" placeholder="Description">
+                <div class="field">
+                    <label class="label">Description</label>
+                    <div class="control">
+                        <input class="input" required="required" placeholder="Votre description">
                     </div>
                 </div>
-                <div>
-                    <label>Lieu : </label>
-                    <select v-on:change="onSelectChange">
+                <div class="field">
+                    <label class="label">Lieu</label>
+                    <select class="select control" v-on:change="onSelectChange">
                         <option value="">Veuillez choisir une option</option>
                         <option value="Carte">Carte</option>
                         <option value="Adresse">Adresse</option>
                     </select>
-                    <div style="height:600px; width:800px" v-if="selected === 'Carte'">
+                    <div class="my-4 leaflet" v-if="selected === 'Carte'">
                         <div style="height:500px; width:800px" id="map" ref="map"></div>
                     </div>
                     <div v-if="selected === 'Adresse'">
-                        <label>Adresse de l'évènement</label>
+                        <label class="label">Adresse de l'évènement</label>
                         <div>
                             <input class="input" type="text" required="required" placeholder="Adresse">
                         </div>
 
                     </div>
                 </div>
-                <div>
-                    <label>Date</label>
-                    <div>
+                <div class="field">
+                    <label class="label">Date</label>
+                    <div class="control">
                         <input class="input" type="date" required="required" placeholder="Titre">
                     </div>
                 </div>
-                <button type="submit">Valider</button>
+                <div class="control is-flex is-justify-content-center mt-4">
+                    <button class="button is-link" type="submit">Valider</button>
+                </div>
             </form>
-        </div>
-    </main>
+        </section>
 </template>
 <script setup>
 </script>

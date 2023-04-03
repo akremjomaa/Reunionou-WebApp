@@ -4,6 +4,7 @@ import {useRoute} from "vue-router";
 import {onMounted} from "vue";
 import axios from "axios";
 import {ref} from "@vue/reactivity";
+import {BASE} from "../../public/config";
 
 const route = useRoute();
 const commentList = ref([]);
@@ -11,12 +12,12 @@ const count = ref(0);
 
 onMounted(() => {
     console.log("Liste des commentaires d'un évenement");
-    getInvitations()
+    getComments()
 
 });
 
-async function getInvitations(){
-    await axios.get(`https://api.reunionou.local:19043/events/${route.params.id}/comments`).then(response =>{
+async function getComments(){
+    await axios.get(`${BASE}/events/${route.params.id}/comments`).then(response =>{
         console.log(response.data)
         commentList.value= response.data.comments;
         count.value = response.data.count;
@@ -29,18 +30,19 @@ async function getInvitations(){
 </script>
 
 <template>
-    <main>
-        <div>
-            <h2> List des commentaires : {{count}}</h2>
-            <button>ajouter un commentaire</button>
-            <template v-for="comment in commentList" :key="comment.id">
+        <div class="box">
+            <h2 class="subtitle is-4">Commentaires ({{count}})</h2>
 
-                <div v-if="comment.user_name === null"> {{comment.invited_name}} {{comment.invited_firstName}}</div>
-                  <div v-else> {{comment.user_name}}</div>
-                <div>contenu de commentaire : {{comment.content}}</div>
+            <button class="button is-link mb-3">Ajouter un commentaire</button>
+            <template v-for="comment in commentList" :key="comment.id">
+                <div class="my-3">
+                    <h3 v-if="comment.user_name === null"><strong>{{comment.invited_name}} {{comment.invited_firstName}}</strong> a dit :</h3>
+                    <h3 v-else><strong>{{comment.user_name}}</strong> a dit :</h3>
+                    <p class="pl-3">{{comment.content}}</p>
+                </div>
+
             </template>
         </div>
-    </main>
 </template>
 <style scoped>
 

@@ -3,6 +3,7 @@ import { ref } from '@vue/reactivity';
 import { useRouter } from 'vue-router';
 import {reactive} from "vue";
 import axios from "axios";
+import {BASE} from "../../public/config";
 
 const router = useRouter()
 
@@ -18,7 +19,7 @@ async function validationFormulaire() {
         alert("les mots de passe ne sont pas compatibles ! vérifiez de nouveau !")
     }
     else {
-        axios.post('https://api.reunionou.local:19043/users/', {
+        axios.post(`${BASE}/users/`, {
            firstname : member.firstname , name : member.name , email : member.email , password : member.password
         }).then(function (response){
             console.log(checkPassword.value)
