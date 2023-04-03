@@ -39,7 +39,7 @@ function logOut() {
 
       <div class="navbar-end">
         <div class="navbar-item">
-          <!--Navbar utilisateur connecté-->
+
           <div v-if="navUserConnected" class="buttons my-0">
             <router-link to="/user/2">
               <span class="icon is-large">
@@ -53,7 +53,6 @@ function logOut() {
             </router-link>
           </div>
           
-          <!--Navbar utilisateur déconnecté-->
 
           <div v-else="navUserConnected" class="buttons my-0">
             <router-link to="/createAccount" class="button is-primary my-0">
@@ -63,6 +62,7 @@ function logOut() {
               Se connecter
             </router-link>
           </div>
+          
         </div>
       </div>
 
