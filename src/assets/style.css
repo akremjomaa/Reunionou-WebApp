@@ -7898,9 +7898,9 @@ html::-webkit-scrollbar-thumb {
   .navbar.is-fixed-top {
     z-index: 1001; }
 
-.leaflet {
+.leaflet-reunionou {
   height: 50vh; }
 
 @media screen and (min-width: 1024px) {
-  .leaflet {
+  .leaflet-reunionou {
     height: 70vh; } }
