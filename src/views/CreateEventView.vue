@@ -1,63 +1,51 @@
 <script>
-
 import "leaflet/dist/leaflet.css";
-import {
-    LMap,
-    LIcon,
-    LTileLayer,
-    LMarker,
-    LControlLayers,
-    LTooltip,
-    LPopup,
-    LPolyline,
-    LPolygon,
-    LRectangle,
-} from "@vue-leaflet/vue-leaflet";
+import {LMap, LTileLayer, LMarker} from "@vue-leaflet/vue-leaflet";
+import L from 'leaflet';
 
 export default {
+
+    computed: {
+    },
     components: {
         LMap,
-        LIcon,
         LTileLayer,
         LMarker,
-        LControlLayers,
-        LTooltip,
-        LPopup,
-        LPolyline,
-        LPolygon,
-        LRectangle,
     },
     data() {
         return {
-            zoom: 14,
-            iconWidth: 25,
-            iconHeight: 40,
-            selected: ""
-        };
-    },
-    computed: {
-        iconUrl() {
-            return `https://placekitten.com/${this.iconWidth}/${this.iconHeight}`;
-        },
-        iconSize() {
-            return [this.iconWidth, this.iconHeight];
-        },
+            map: null,
+            marker: null,
+            selected: ''
+        }
     },
     methods: {
-        changeIcon() {
-            this.iconWidth += 2;
-            if (this.iconWidth > this.iconHeight) {
-                this.iconWidth = Math.floor(this.iconHeight / 2);
-            }
-        },
         onSelectChange(event) {
             this.selected = event.target.value;
+            if(this.selected === 'Carte') {
+                setTimeout(() => {this.mapChange();}, 2000);
+            }
         },
-        onMapClick(e) {
-           console.log(e);
+        mapChange() {
+            this.map = L.map('map').setView([48.685054, 6.184417], 13);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: 'Map data &copy; OpenStreetMap contributors'
+            }).addTo(this.map);
+
+            this.map.on('click', event => {
+                if (this.marker) {
+                    this.marker.setLatLng(event.latlng);
+                    console.log(event.latlng);
+                } else {
+                    this.marker = L.marker(event.latlng).addTo(this.map);
+                    console.log(event.latlng);
+                }
+            });
         }
     }
 };
+
 </script>
 
 <template>
@@ -85,13 +73,7 @@ export default {
                         <option value="Adresse">Adresse</option>
                     </select>
                     <div style="height:600px; width:800px" v-if="selected === 'Carte'">
-                        <l-map ref="map" v-model:zoom="zoom" :center="[48.683188, 6.161877]" @click="onMapClick">
-                            <l-tile-layer
-                                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                                    layer-type="base"
-                                    name="OpenStreetMap"
-                            ></l-tile-layer>
-                        </l-map>
+                        <div style="height:500px; width:800px" id="map" ref="map"></div>
                     </div>
                     <div v-if="selected === 'Adresse'">
                         <label>Adresse de l'évènement</label>
@@ -112,6 +94,5 @@ export default {
         </div>
     </main>
 </template>
-
-<style scoped>
-</style>
+<script setup>
+</script>
