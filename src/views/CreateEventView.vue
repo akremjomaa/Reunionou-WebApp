@@ -1,4 +1,5 @@
 <script>
+
 import "leaflet/dist/leaflet.css";
 import {
     LMap,
@@ -31,6 +32,7 @@ export default {
             zoom: 14,
             iconWidth: 25,
             iconHeight: 40,
+            selected: ""
         };
     },
     computed: {
@@ -48,9 +50,14 @@ export default {
                 this.iconWidth = Math.floor(this.iconHeight / 2);
             }
         },
-        handleMapClick(event) {
-
+        onSelectChange(event) {
+            this.selected = event.target.value;
         },
+        onMapClick(event) {
+            const lat = event.originalEvent.latlng.lat;
+            const lng = event.originalEvent.latlng.lng;
+            console.log(`Map clicked at: (${lat}, ${lng})`);
+        }
     }
 };
 </script>
@@ -73,15 +80,27 @@ export default {
                     </div>
                 </div>
                 <div>
-                    <label>Lieu</label>
-                    <div style="height:600px; width:800px">
-                        <l-map ref="map" v-model:zoom="zoom" :center="[48.683188, 6.161877]" @click="handleMapClick">
+                    <label>Lieu : </label>
+                    <select v-on:change="onSelectChange">
+                        <option value="">Veuillez choisir une option</option>
+                        <option value="Carte">Carte</option>
+                        <option value="Adresse">Adresse</option>
+                    </select>
+                    <div style="height:600px; width:800px" v-if="selected === 'Carte'">
+                        <l-map ref="map" v-model:zoom="zoom" :center="[48.683188, 6.161877]" @click="onMapClick">
                             <l-tile-layer
                                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                                     layer-type="base"
                                     name="OpenStreetMap"
                             ></l-tile-layer>
                         </l-map>
+                    </div>
+                    <div v-if="selected === 'Adresse'">
+                        <label>Adresse de l'évènement</label>
+                        <div>
+                            <input class="input" type="text" required="required" placeholder="Adresse">
+                        </div>
+
                     </div>
                 </div>
                 <div>
