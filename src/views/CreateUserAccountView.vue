@@ -42,7 +42,7 @@ async function validationFormulaire() {
 </script>
 
 <template>
-    <section class="column pt-6 is-8 is-offset-2">
+    <section class="column pt-6 is-10-tablet is-offset-1-tablet is-8-desktop is-offset-2-desktop is-6-widescreen is-offset-3-widescreen is-4-fullhd is-offset-4-fullhd">
         <h1 class="title is-2 has-text-centered">Créer un compte</h1>
         <form @submit.prevent="validationFormulaire" class="box">
             <div class="field">

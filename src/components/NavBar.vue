@@ -4,6 +4,14 @@ import { reactive } from 'vue'
 const state = reactive({
     menuOuvert: false
 });
+
+const navUserConnected = '';
+
+function logOut() {
+    if(!confirm('Voulez-vous vraiment vous déconnecter ?')) return;
+    session.endSession();
+    router.push('/');
+}
 </script>
 
 <template>
@@ -12,14 +20,14 @@ const state = reactive({
       <router-link to="/" class="navbar-item">
         <img src="/logo.png" alt="logo" width="40" height="40">
       </router-link>
-      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" @click="state.menuOuvert=!state.menuOuvert">
+      <a v-if="navUserConnected" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" @click="state.menuOuvert=!state.menuOuvert">
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
       </a>
     </div>
 
-    <div class="navbar-menu" :class="{'is-active':state.menuOuvert}">
+    <div v-if="navUserConnected" class="navbar-menu" :class="{'is-active':state.menuOuvert}">
       <div class="navbar-start">
         <router-link to="/" class="navbar-item">
           Mes évènements
@@ -32,13 +40,13 @@ const state = reactive({
       <div class="navbar-end">
         <div class="navbar-item">
           <!--Navbar utilisateur connecté-->
-          <div class="buttons my-0">
+          <div v-if="navUserConnected" class="buttons my-0">
             <router-link to="/user/2">
               <span class="icon is-large">
                 <i class="fas fa-2x fa-user"></i>
               </span>
             </router-link>
-            <router-link to="/">
+            <router-link @click="logOut" to="/">
               <span class="icon is-large">
                 <i class="fas fa-2x fa-sign-out-alt"></i>
               </span>
@@ -47,7 +55,7 @@ const state = reactive({
           
           <!--Navbar utilisateur déconnecté-->
 
-          <div class="buttons my-0">
+          <div v-else="navUserConnected" class="buttons my-0">
             <router-link to="/createAccount" class="button is-primary my-0">
               <strong>S'inscrire</strong>
             </router-link>
