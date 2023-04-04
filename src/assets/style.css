@@ -7877,6 +7877,9 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
   background-color: #fafafa;
   padding: 3rem 1.5rem 6rem; }
 
+* {
+  transition: all 0.2s ease; }
+
 html {
   scroll-behavior: smooth;
   scrollbar-color: #ff7161 #ebebeb;
@@ -7892,6 +7895,14 @@ html::-webkit-scrollbar {
 html::-webkit-scrollbar-thumb {
   background-color: #ff7161;
   border-radius: 5px; }
+
+a:hover {
+  color: #ff9c2b; }
+
+.button.is-link:hover, .button.is-primary:hover, .button.is-primary.is-outlined:hover {
+  color: #ff9c2b;
+  border: 1px solid #ff9c2b;
+  background-color: transparent; }
 
 .navbar {
   box-shadow: 0 0 5px; }

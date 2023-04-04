@@ -55,7 +55,7 @@ async function deleteAccount() {
     </div>
     <div class="is-flex is-flex-direction-column is-align-items-center">
         <router-link class="button is-link mb-3" :to="`/user/update/${member.id}`">Modifier votre compte</router-link>
-        <button class="button is-light" @click="deleteAccount">Supprimer votre compte</button>
+        <button class="button is-primary is-outlined" @click="deleteAccount">Supprimer votre compte</button>
     </div>
 </section>
 </template>

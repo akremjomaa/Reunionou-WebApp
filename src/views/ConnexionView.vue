@@ -20,7 +20,7 @@
 
             <div class="is-flex is-flex-direction-column is-align-items-center">
                 <button class="button is-link mb-3" type="submit">Connexion</button>
-                <router-link class="button is-light" to="/inscription">Créer un compte</router-link>
+                <router-link class="button is-primary is-outlined" to="/inscription">Créer un compte</router-link>
             </div>
         </form>
     </section>

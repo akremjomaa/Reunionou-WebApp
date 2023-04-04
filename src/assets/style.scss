@@ -23,26 +23,36 @@ $section-padding-desktop: 3rem 1rem;
 
 @import "../../node_modules/bulma/bulma.sass";
 
+*{
+  transition: all 0.2s ease;
+}
 html {
-    scroll-behavior: smooth;
-    scrollbar-color: $orange1 #ebebeb;
-    scrollbar-width: thin;
-  }
-  
-  html::-webkit-scrollbar-track {
-    background-color: #ebebeb;
-  }
-  
-  html::-webkit-scrollbar {
-    width: 10px;
-    background-color: #ebebeb;
-  }
-  
-  html::-webkit-scrollbar-thumb {
-    background-color: $orange1;
-    border-radius: 5px;
-  }
+  scroll-behavior: smooth;
+  scrollbar-color: $orange1 #ebebeb;
+  scrollbar-width: thin;
+}
 
+html::-webkit-scrollbar-track {
+  background-color: #ebebeb;
+}
+
+html::-webkit-scrollbar {
+  width: 10px;
+  background-color: #ebebeb;
+}
+
+html::-webkit-scrollbar-thumb {
+  background-color: $orange1;
+  border-radius: 5px;
+}
+a:hover{
+  color: $yellow;
+}
+.button.is-link:hover, .button.is-primary:hover, .button.is-primary.is-outlined:hover{
+  color: $yellow;
+  border: 1px solid $yellow;
+  background-color: transparent;
+}
 .navbar{
     box-shadow: 0 0 5px;
     &.is-fixed-top{
