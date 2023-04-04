@@ -132,8 +132,8 @@ export default {
                     <option value="Carte">Carte</option>
                     <option value="Adresse">Adresse</option>
                 </select>
-                <div class="my-4 leaflet" v-if="selected === 'Carte'">
-                    <div style="height:500px; width:800px" id="map" ref="map"></div>
+                <div class="my-4 leaflet-reunionou" v-if="selected === 'Carte'">
+                    <div class="my-4 leaflet-reunionou" id="map" ref="map"></div>
                 </div>
                 <div v-if="selected === 'Adresse'">
                     <label class="label">Adresse de l'évènement</label>

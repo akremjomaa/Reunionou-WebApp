@@ -47,44 +47,42 @@ async function getUser() {
 }
 </script>
 <template>
-    <main>
-        <form @submit.prevent="putUser">
-
-            <div>
-                <label>Prénom</label>
-                <div>
+    <section class="column pt-6 is-10-tablet is-offset-1-tablet is-8-desktop is-offset-2-desktop is-6-widescreen is-offset-3-widescreen is-4-fullhd is-offset-4-fullhd">
+        <h1 class="title is-2 has-text-centered">Mettre à jour le profil</h1>
+        <form class="box" @submit.prevent="putUser">
+            <div class="field">
+                <label class="label">Prénom</label>
+                <div class="control">
                     <input class="input" v-model="member.firstname" required="required" placeholder="Prénom">
                 </div>
             </div>
 
-            <div>
-                <label>Nom</label>
-                <div>
+            <div class="field">
+                <label class="label">Nom</label>
+                <div class="control">
                     <input class="input" v-model="member.lastname" required="required" placeholder="Nom">
                 </div>
             </div>
 
-            <div>
-                <label>E-mail</label>
-                <div>
+            <div class="field">
+                <label class="label">E-mail</label>
+                <div class="control">
                     <input class="input" v-model="member.email" required="required" type="email" placeholder="E-mail">
                 </div>
             </div>
 
-            <div>
-                <label>Mot de Passe</label>
-                <div>
-                    <input v-model="member.password" required="required" type="password" placeholder="Mot de Passe">
+            <div class="field">
+                <label class="label">Mot de Passe</label>
+                <div class="control">
+                    <input class="input" v-model="member.password" required="required" type="password" placeholder="Mot de Passe">
                 </div>
             </div>
 
-            <div>
-                <div>
-                    <button type="submit">Mettre à jour vos informations ?</button>
-                </div>
+            <div class="is-flex is-flex-direction-column is-align-items-center">
+                <button class="button is-link" type="submit">Mettre à jour vos informations</button>
             </div>
         </form>
-    </main>
+    </section>
 
 </template>
 <style scoped>
