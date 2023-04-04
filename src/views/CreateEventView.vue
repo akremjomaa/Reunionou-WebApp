@@ -45,25 +45,31 @@ export default {
                 attribution: 'Map data &copy; OpenStreetMap contributors'
             }).addTo(this.map);
 
-            this.map.on('click', event => {
+            this.map.on('click', async event => {
                 if (this.marker) {
                     this.marker.setLatLng(event.latlng);
                     this.e.lat = event.latlng.lat
                     this.e.lon = event.latlng.lng
                     this.e.lieu = `${this.e.lat},${this.e.lon}`
-                    console.log(event.latlng);
+                    await axios.get(`https://api-adresse.data.gouv.fr/reverse/?lon=${this.e.lon}&lat=${this.e.lat}`).then(response => {
+                        if (response.data.features[0]) {
+                            this.marker.bindPopup(`${response.data.features[0].properties.label}`).openPopup();
+                        }
+                    }).catch(error => console.log(error));
                 } else {
                     this.marker = L.marker(event.latlng).addTo(this.map);
                     this.e.lat = event.latlng.lat
                     this.e.lon = event.latlng.lng
                     this.e.lieu = `${this.e.lat},${this.e.lon}`
-                    console.log(event.latlng);
+                    await axios.get(`https://api-adresse.data.gouv.fr/reverse/?lon=${this.e.lon}&lat=${this.e.lat}`).then(response => {
+                        if (response.data.features[0]) {
+                            this.marker.bindPopup(`${response.data.features[0].properties.label}`).openPopup();
+                        }
+                    }).catch(error => console.log(error));
                 }
             });
         },
         async newEvent() {
-
-            await this.getUser();
             await this.getPlace();
 
             if (this.e.lieu !== '') {
@@ -72,20 +78,15 @@ export default {
                     event_description: this.e.descri,
                     event_place: this.e.lieu,
                     event_status: 'none',
+                    event_date: this.e.date,
                     created_by: this.e.id
                 }).then(() => {
                     router.push(`/user/${this.e.id}/events`);
                 }).catch(error => console.log(error));
             }
         },
-        async getUser() {
-            this.loading = true;
-            await axios.get(`http://api.reunionou.local:19080/users/2`).then(response => {
-                console.log(response.data.user);
-                // e.id = response.data.user.id;
-            }).catch(error => console.log(error));
-        },
         async getPlace() {
+            this.loading = true;
             if (this.e.adresse !== '') {
                 await axios.get(`https://api-adresse.data.gouv.fr/search/?q=${this.e.adresse}`).then(response => {
                     if (response.data.features[0]) {
@@ -102,7 +103,6 @@ export default {
             if (this.e.lieu == '') {
                 alert("L'emplacement de l'évènement est inconnue !");
             }
-
         }
     }
 };
@@ -146,7 +146,7 @@ export default {
             <div class="field">
                 <label class="label">Date</label>
                 <div class="control">
-                    <input class="input" type="date" required="required" v-model="e.date" placeholder="Titre">
+                    <input class="input" type="datetime-local" required="required" v-model="e.date">
                 </div>
             </div>
             <div v-if="loading === true">
