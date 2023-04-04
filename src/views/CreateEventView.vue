@@ -73,8 +73,8 @@ export default {
                     event_place: this.e.lieu,
                     event_status: 'none',
                     created_by: this.e.id
-                }).then(async () => {
-                    await router.push(`/user/${this.e.id}/events`);
+                }).then(() => {
+                    router.push(`/user/${this.e.id}/events`);
                 }).catch(error => console.log(error));
             }
         },
