@@ -62,9 +62,11 @@ export default {
             });
         },
         async newEvent() {
+
             await this.getUser();
             await this.getPlace();
-            if(this.e.lieu !== '') {
+
+            if (this.e.lieu !== '') {
                 await axios.post(`http://api.reunionou.local:19080/events/`, {
                     event_title: this.e.titre,
                     event_description: this.e.descri,
@@ -72,7 +74,7 @@ export default {
                     event_status: 'none',
                     created_by: this.e.id
                 }).then(async () => {
-                    await router.push(`/user/${e.id}/events`);
+                    await router.push(`/user/${this.e.id}/events`);
                 }).catch(error => console.log(error));
             }
         },
@@ -84,9 +86,9 @@ export default {
             }).catch(error => console.log(error));
         },
         async getPlace() {
-            if(this.e.adresse !== '') {
+            if (this.e.adresse !== '') {
                 await axios.get(`https://api-adresse.data.gouv.fr/search/?q=${this.e.adresse}`).then(response => {
-                    if(response.data.features[0]) {
+                    if (response.data.features[0]) {
                         this.e.lon = response.data.features[0].geometry.coordinates[0];
                         this.e.lat = response.data.features[0].geometry.coordinates[1];
                         this.e.lieu = `${this.e.lat},${this.e.lon}`;
@@ -97,7 +99,7 @@ export default {
                 }).catch(error => console.log(error));
             }
 
-            if(this.e.lieu == '') {
+            if (this.e.lieu == '') {
                 alert("L'emplacement de l'évènement est inconnue !");
             }
 
@@ -108,53 +110,53 @@ export default {
 </script>
 
 <template>
-    <main>
-        <div>
-            <div><h1>Créer un évènement</h1></div>
-            <form @submit.prevent="newEvent">
-                <div>
-                    <label>Titre</label>
-                    <div>
-                        <input class="input" required="required" v-model="e.titre" placeholder="Titre">
-                    </div>
+    <section class="column pt-6 is-10-tablet is-offset-1-tablet is-8-widescreen is-offset-2-widescreen">
+        <h1 class="title is-2 has-text-centered">Créer un évènement</h1>
+        <form @submit.prevent="newEvent">
+            <div class="field">
+                <label class="label">Titre</label>
+                <div class="control">
+                    <input class="input" required="required" placeholder="Votre titre">
                 </div>
-                <div>
-                    <label>Description</label>
-                    <div>
-                        <input class="input" required="required" v-model="e.descri" placeholder="Description">
-                    </div>
+            </div>
+            <div class="field">
+                <label class="label">Description</label>
+                <div class="control">
+                    <input class="input" required="required" placeholder="Votre description">
                 </div>
-                <div>
-                    <label>Lieu : </label>
-                    <select v-on:change="onSelectChange">
-                        <option value="">Veuillez choisir une option</option>
-                        <option value="Carte">Carte</option>
-                        <option value="Adresse">Adresse</option>
-                    </select>
-                    <div style="height:600px; width:800px" v-if="selected === 'Carte'">
-                        <div style="height:500px; width:800px" id="map" ref="map"></div>
+            </div>
+            <div class="field">
+                <label class="label">Lieu</label>
+                <select class="select control" v-on:change="onSelectChange">
+                    <option value="">Veuillez choisir une option</option>
+                    <option value="Carte">Carte</option>
+                    <option value="Adresse">Adresse</option>
+                </select>
+                <div class="my-4 leaflet" v-if="selected === 'Carte'">
+                    <div style="height:500px; width:800px" id="map" ref="map"></div>
+                </div>
+                <div v-if="selected === 'Adresse'">
+                    <label class="label">Adresse de l'évènement</label>
+                    <div>
+                        <input class="input" type="text" v-model="e.adresse" placeholder="Adresse">
                     </div>
-                    <div v-if="selected === 'Adresse'">
-                        <label>Adresse de l'évènement</label>
-                        <div>
-                            <input class="input" type="text" v-model="e.adresse" placeholder="Adresse">
-                        </div>
 
-                    </div>
                 </div>
-                <div>
-                    <label>Date</label>
-                    <div>
-                        <input class="input" type="date" required="required" v-model="e.date" placeholder="Titre">
-                    </div>
+            </div>
+            <div class="field">
+                <label class="label">Date</label>
+                <div class="control">
+                    <input class="input" type="date" required="required" placeholder="Titre">
                 </div>
-                <div v-if="loading === true">
-                    Loading...
-                </div>
-                <button type="submit">Valider</button>
-            </form>
-        </div>
-    </main>
+            </div>
+            <div v-if="loading === true">
+                Loading...
+            </div>
+            <div class="control is-flex is-justify-content-center mt-4">
+                <button class="button is-link" type="submit">Valider</button>
+            </div>
+        </form>
+    </section>
 </template>
 <script setup>
 </script>
