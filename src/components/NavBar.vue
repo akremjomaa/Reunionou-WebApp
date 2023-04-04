@@ -29,11 +29,17 @@ function logOut() {
     </div>
 
     <div class="navbar-menu" :class="{'is-active':state.menuOuvert}">
-      <div v-if="navUserConnected.value" class="navbar-start">
+      <div v-if="!navUserConnected.value" class="navbar-start">
         <router-link to="/user/:id/events" class="navbar-item">
+            <span class="icon is-medium mr-1">
+                <i class="fas fa-calendar-alt"></i>
+            </span>
           Mes évènements
         </router-link>
         <router-link to="/user/:id/invitations" class="navbar-item">
+            <span class="icon is-medium mr-1">
+                <i class="fas fa-envelope"></i>
+            </span>
           Mes invitations
         </router-link>
       </div>
@@ -41,25 +47,39 @@ function logOut() {
       <div class="navbar-end">
         <div class="navbar-item">
 
-          <div v-if="navUserConnected.value" class="buttons my-0">
-            <router-link to="/user/:id">
-              <span class="icon is-large">
-                <i class="fas fa-2x fa-user"></i>
-              </span>
+          <div v-if="!navUserConnected.value" class="buttons my-0">
+            <router-link to="/event/new" class="button is-primary my-1 pl-4">
+            <span class="icon is-medium mr-2">
+              <i class="fas fa-plus"></i>
+            </span>
+                Créer un évènement
             </router-link>
-            <router-link @click="logOut" to="/">
-              <span class="icon is-large">
-                <i class="fas fa-2x fa-sign-out-alt"></i>
+            <router-link to="/user/:id" class="button is-primary is-outlined my-1 pl-4">
+              <span class="icon is-medium mr-2">
+                <i class="fas fa-user"></i>
               </span>
+              Mon compte
+            </router-link>
+            <router-link @click="logOut" to="/" class="button is-primary is-outlined my-1 pl-4">
+              <span class="icon is-medium mr-2">
+                <i class="fas fa-sign-out-alt"></i>
+              </span>
+                Se déconnecter
             </router-link>
           </div>
           
 
-          <div v-if="!navUserConnected.value" class="buttons my-0">
-            <router-link to="/inscription" class="button is-primary my-0">
+          <div v-if="navUserConnected.value" class="buttons my-0">
+            <router-link to="/inscription" class="button is-primary my-1 pl-4">
+                <span class="icon is-medium mr-2">
+                    <i class="fas fa-user-plus"></i>
+                </span>
               S'inscrire
             </router-link>
-            <router-link to="/connexion" class="button is-primary is-outlined my-0">
+            <router-link to="/connexion" class="button is-primary is-outlined my-1 pl-4">
+                <span class="icon is-medium mr-2">
+                    <i class="fas fa-sign-in-alt"></i>
+                </span>
               Se connecter
             </router-link>
           </div>

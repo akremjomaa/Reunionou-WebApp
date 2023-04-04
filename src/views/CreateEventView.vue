@@ -112,7 +112,7 @@ export default {
 <template>
     <section class="column pt-6 is-10-tablet is-offset-1-tablet is-8-widescreen is-offset-2-widescreen">
         <h1 class="title is-2 has-text-centered">Créer un évènement</h1>
-        <form @submit.prevent="newEvent">
+        <form class="box" @submit.prevent="newEvent">
             <div class="field">
                 <label class="label">Titre</label>
                 <div class="control">
@@ -149,11 +149,16 @@ export default {
                     <input class="input" type="date" required="required" v-model="e.date" placeholder="Titre">
                 </div>
             </div>
-            <div v-if="loading === true">
-                Loading...
+            <div v-if="loading === true" class="control is-flex is-justify-content-center mt-4">
+                <button class="button is-info is-loading">Loading</button>
             </div>
-            <div class="control is-flex is-justify-content-center mt-4">
-                <button class="button is-link" type="submit">Valider</button>
+            <div v-if="loading === false" class="control is-flex is-justify-content-center mt-4">
+                <button class="button is-link" type="submit">
+                    <span class="icon is-medium mr-2">
+                      <i class="fas fa-save"></i>
+                    </span>
+                    Enregistrer
+                </button>
             </div>
         </form>
     </section>

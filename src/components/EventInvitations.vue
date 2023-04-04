@@ -78,7 +78,10 @@ async function updateEvent(){
             <template v-for="invitation in invitationList" :key="invitation.id">
                <div> <b> {{invitation.invited_name}} {{invitation.invited_firstName}}</b> {{invitation.invitation_status}}</div>
             </template>
-             <button class="button is-link mt-3" @click="modeInviteMembers">Inviter des des membres</button>
+             <button class="button is-link mt-3" @click="modeInviteMembers">
+                 <span class="icon is-medium mr-2"><i class="fas fa-user-plus"></i></span>
+                 Inviter des membres
+             </button>
 
             <div v-if="state.userListVisible">
                 <form>
@@ -88,7 +91,10 @@ async function updateEvent(){
                             {{ user.firstname }} {{user.lastname}}
                         </label><br>
                     </template>
-                    <button class="button is-link mt-3" @click.prevent="sendInvitations">Envoyer</button>
+                    <button class="button is-link mt-3" @click.prevent="sendInvitations">
+                        <span class="icon is-medium mr-2"><i class="fas fa-paper-plane"></i></span>
+                        Envoyer
+                    </button>
                 </form>
 
             </div>

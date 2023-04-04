@@ -79,12 +79,17 @@ async function validationFormulaire() {
                 <label class="label">Confirmer mot de passe</label>
                 <div class="control">
                     <input class="input" v-model="checkPassword" required="required" type="password"
-                        placeholder="Répeter votre Mot de passe ici">
+                        placeholder="Répetez votre Mot de passe ici">
                 </div>
             </div>
             <div class="field">
                 <div class="control is-flex is-justify-content-center mt-4">
-                    <button class="button is-link" type="submit">Créer votre compte </button>
+                    <button class="button is-link" type="submit">
+                        <span class="icon is-medium mr-2">
+                            <i class="fas fa-user-plus"></i>
+                        </span>
+                        Créer votre compte
+                    </button>
                 </div>
             </div>
         </form>
