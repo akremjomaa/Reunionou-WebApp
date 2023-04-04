@@ -116,13 +116,13 @@ export default {
             <div class="field">
                 <label class="label">Titre</label>
                 <div class="control">
-                    <input class="input" required="required" placeholder="Votre titre">
+                    <input class="input" required="required" v-model="e.titre" placeholder="Votre titre">
                 </div>
             </div>
             <div class="field">
                 <label class="label">Description</label>
                 <div class="control">
-                    <input class="input" required="required" placeholder="Votre description">
+                    <input class="input" required="required" v-model="e.descri" placeholder="Votre description">
                 </div>
             </div>
             <div class="field">
@@ -146,7 +146,7 @@ export default {
             <div class="field">
                 <label class="label">Date</label>
                 <div class="control">
-                    <input class="input" type="date" required="required" placeholder="Titre">
+                    <input class="input" type="date" required="required" v-model="e.date" placeholder="Titre">
                 </div>
             </div>
             <div v-if="loading === true">
