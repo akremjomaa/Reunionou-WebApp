@@ -28,7 +28,6 @@ async  function getInvitations() {
 
 </script>
 <template>
-    <main>
         <h1>Vos invitations : {{count}}</h1>
         <div>
             <template v-for=" invitation in invitationsList" :key="invitation.id">
@@ -42,5 +41,4 @@ async  function getInvitations() {
             </template>
 
         </div>
-    </main>
 </template>

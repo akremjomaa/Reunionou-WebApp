@@ -54,47 +54,43 @@ async function updateEvent(){
 </script>
 
 <template>
-    <main><div v-if="state.eventFormVisible">
-        <form @submit.prevent="updateEvent">
-            <div>
-                <label>Titre</label>
-                <input v-model="state.event.event_title"
-                       id="{{state.event.event_title}}" type="text">
-            </div>
-            <div>
-                <label>Description</label>
-                <input v-model="state.event.event_description"
-                       id="{{state.event.event_description}}" type="text">
-            </div>
-            <div>
-                <label>Lieu</label>
-                <input v-model="state.event.event_place"
-                       id="{{state.event.event_place}}" type="text">
-            </div>
-            <div>
-                <label>Date</label>
-                <input v-model="state.event.event_date"
-                       id="{{state.event.event_date}}" type="datetime-local">
-            </div>
-            <button>Enregistrer</button>
-        </form>
-    </div>
-        <div v-else>
-            <h2>Titre : {{state.event.event_title}}</h2>
-            <h3> Description : {{state.event.event_description}}</h3>
-            <h3> Date de l'evenement : {{state.event.event_date}}</h3>
-            <h3> Lieu de l'evenement : {{state.event.event_place}} </h3>
-            <h3> Statut : {{state.event.event_status}} </h3>
-            <h3>Evenement crée par : {{state.creator.firstname}}  {{state.creator.name}} </h3>
-            <button @click="modeUpdateEvent">Modifier un évenement</button>
+    <section class="column pt-6 is-10-tablet is-offset-1-tablet is-8-widescreen is-offset-2-widescreen">
+        <div class="box" v-if="state.eventFormVisible">
+            <form @submit.prevent="updateEvent">
+                <div>
+                    <label class="label">Titre</label>
+                    <input v-model="state.event.event_title" id="{{state.event.event_title}}" type="text">
+                </div>
+                <div>
+                    <label class="label">Description</label>
+                    <input v-model="state.event.event_description" id="{{state.event.event_description}}" type="text">
+                </div>
+                <div>
+                    <label class="label">Lieu</label>
+                    <input v-model="state.event.event_place" id="{{state.event.event_place}}" type="text">
+                </div>
+                <div>
+                    <label class="label">Date</label>
+                    <input v-model="state.event.event_date" id="{{state.event.event_date}}" type="datetime-local">
+                </div>
+                <button class="button is-link">Enregistrer</button>
+            </form>
         </div>
-        <div>
+        <div class="box" v-else>
+            <h2 class="title is-2">{{ state.event.event_title }}</h2>
+            <h3>Description : {{ state.event.event_description }}</h3>
+            <h3>Date : {{ state.event.event_date }}</h3>
+            <h3>Lieu : {{ state.event.event_place }} </h3>
+            <h3>Statut : {{ state.event.event_status }} </h3>
+            <h3>Évènement créé par : {{ state.creator.firstname }} {{ state.creator.name }} </h3>
+            <button class="button is-link mt-3" @click="modeUpdateEvent">Modifier un évenement</button>
+        </div>
+
             <Invitations></Invitations>
-        </div>
-        <div>
+
             <Comments></Comments>
-        </div>
-    </main>
+
+    </section>
 </template>
 <style scoped>
 
