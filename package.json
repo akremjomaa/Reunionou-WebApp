@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",
+    "@vue-leaflet/vue-leaflet": "^0.8.4",
     "bulma": "^0.9.4",
     "node-sass": "^8.0.0",
     "vite": "^4.1.4"

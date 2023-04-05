@@ -26,19 +26,20 @@ async  function getEvents() {
 
 </script>
 <template>
-    <main>
-        <h1>Vos Évènements : {{count}}</h1>
+    <section class="column pt-6 is-10-tablet is-offset-1-tablet is-8-widescreen is-offset-2-widescreen">
+        <h1 class="title is-2 has-text-centered">Vos évènements ({{count}})</h1>
         <div>
             <template v-for=" oneEvent in eventsList" :key="oneEvent.id">
                 <router-link :to="`/event/${oneEvent.id}`">
-                    <div><h1>{{oneEvent.event_title}}</h1>
-                        <h1>{{oneEvent.event_place}}  </h1>
-                        <h1>{{oneEvent.event_date}}</h1>
-                        <h1>{{oneEvent.event_status}}</h1>
-                    </div></router-link>
-                <hr>
+                    <div class="box">
+                        <h2>{{oneEvent.event_title}}</h2>
+                        <h3>{{oneEvent.event_place}}</h3>
+                        <h3>{{oneEvent.event_date}}</h3>
+                        <h3>{{oneEvent.event_status}}</h3>
+                    </div>
+                </router-link>
             </template>
 
         </div>
-    </main>
+    </section>
 </template>

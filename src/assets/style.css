@@ -275,7 +275,7 @@ th {
     text-align: inherit; }
 
 html {
-  background-color: white;
+  background-color: #fafafa;
   font-size: 16px;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -7864,10 +7864,10 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
       padding: 3rem 3rem; } }
 
 .section {
-  padding: 3rem 1.5rem; }
+  padding: 3rem 1em; }
   @media screen and (min-width: 1024px) {
     .section {
-      padding: 3rem 3rem; }
+      padding: 3rem 1rem; }
       .section.is-medium {
         padding: 9rem 4.5rem; }
       .section.is-large {
@@ -7877,5 +7877,41 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
   background-color: #fafafa;
   padding: 3rem 1.5rem 6rem; }
 
+* {
+  transition: all 0.2s ease; }
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-color: #ff7161 #ebebeb;
+  scrollbar-width: thin; }
+
+html::-webkit-scrollbar-track {
+  background-color: #ebebeb; }
+
+html::-webkit-scrollbar {
+  width: 10px;
+  background-color: #ebebeb; }
+
+html::-webkit-scrollbar-thumb {
+  background-color: #ff7161;
+  border-radius: 5px; }
+
+a:hover {
+  color: #ff9c2b; }
+
+.button.is-link:hover, .button.is-primary:hover, .button.is-primary.is-outlined:hover {
+  color: #ff9c2b;
+  border: 1px solid #ff9c2b;
+  background-color: transparent; }
+
 .navbar {
   box-shadow: 0 0 5px; }
+  .navbar.is-fixed-top {
+    z-index: 1001; }
+
+.leaflet-reunionou {
+  height: 50vh; }
+
+@media screen and (min-width: 1024px) {
+  .leaflet-reunionou {
+    height: 70vh; } }

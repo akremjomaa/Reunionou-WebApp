@@ -30,22 +30,23 @@ async  function getInvitations() {
 
 </script>
 <template>
-    <main>
-        <h1>Vos invitations : {{count}}</h1>
+    <section class="column pt-6 is-10-tablet is-offset-1-tablet is-8-widescreen is-offset-2-widescreen">
+        <h1 class="title is-2 has-text-centered">Vos invitations ({{count}})</h1>
         <div>
-            <template v-for=" invitation in invitationsList" :key="invitation.id">
-                <div v-if="invitation.event != null">
-                    <router-link :to="`/invitation/${invitation.id}`">
-                        <div><h1>Vous etes invité à l'évenement : <b>{{invitation.event.title}}</b> </h1>
-                            <h1>Date de l'évenement :{{invitation.event.date}}  </h1>
-                            <h1>Lieu de l'évenement :{{invitation.event.lieu}}  </h1>
-                            <h1>Status de l'évenement :{{invitation.event.status}}  </h1>
-                            <h2>Status de l'invitation :{{invitation.invitation_status}} </h2></div>
-                    </router-link>
-                </div>
-                <hr>
+            <template v-for="invitation in invitationsList" :key="invitation.id">
+             <div v-if="invitation.event != null">
+                <router-link :to="`/invitation/${invitation.id}`">
+                    <div class="box">
+                        <h2>Vous etes invité à l'évenement : <strong>{{invitation.event.title}}</strong> </h2>
+                        <h3>Date :{{invitation.event.date}}</h3>
+                        <h3>Lieu :{{invitation.event.lieu}}</h3>
+                        <h3>Status de l'évenement :{{invitation.event.status}}</h3>
+                        <h3>Status de l'invitation :{{invitation.invitation_status}}</h3>
+                    </div>
+                </router-link>
+                  </div>
             </template>
 
         </div>
-    </main>
+    </section>
 </template>

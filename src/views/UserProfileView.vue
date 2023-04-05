@@ -46,7 +46,7 @@ async function deleteAccount() {
 </script>
 
 <template>
-<section class="column pt-6 is-8 is-offset-2">
+<section class="column pt-6 is-10-tablet is-offset-1-tablet is-8-desktop is-offset-2-desktop is-6-widescreen is-offset-3-widescreen">
     <h1 class="title is-2 has-text-centered">Votre profil</h1>
     <div class="box">
         <p class="mb-4"><strong>Votre nom :</strong> {{member.lastname}}</p>
@@ -54,8 +54,8 @@ async function deleteAccount() {
         <p class="mb-4"><strong>Votre adresse mail :</strong> {{member.email}}</p>        
     </div>
     <div class="is-flex is-flex-direction-column is-align-items-center">
-        <router-link class="button is-link" :to="`/user/update/${member.id}`">Modifier votre compte</router-link>
-        <button class="button is-light" @click="deleteAccount">Supprimer votre compte</button>
+        <router-link class="button is-link mb-3" :to="`/user/update/${member.id}`">Modifier votre compte</router-link>
+        <button class="button is-primary is-outlined" @click="deleteAccount">Supprimer votre compte</button>
     </div>
 </section>
 </template>
