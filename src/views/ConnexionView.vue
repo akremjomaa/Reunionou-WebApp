@@ -19,8 +19,18 @@
             </div>
 
             <div class="is-flex is-flex-direction-column is-align-items-center">
-                <button class="button is-link mb-3" type="submit">Connexion</button>
-                <router-link class="button is-primary is-outlined" to="/inscription">Créer un compte</router-link>
+                <button class="button is-link mb-3" type="submit">
+                    <span class="icon is-medium mr-2">
+                        <i class="fas fa-sign-in-alt"></i>
+                    </span>
+                    Connexion
+                </button>
+                <router-link class="button is-primary is-outlined" to="/inscription">
+                    <span class="icon is-medium mr-2">
+                        <i class="fas fa-user-plus"></i>
+                    </span>
+                    Créer un compte
+                </router-link>
             </div>
         </form>
     </section>
