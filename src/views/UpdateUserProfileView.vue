@@ -79,7 +79,12 @@ async function getUser() {
             </div>
 
             <div class="is-flex is-flex-direction-column is-align-items-center">
-                <button class="button is-link" type="submit">Mettre à jour vos informations</button>
+                <button class="button is-link" type="submit">
+                    <span class="icon is-medium mr-2">
+                        <i class="fas fa-save"></i>
+                    </span>
+                    Enregistrer les modifications
+                </button>
             </div>
         </form>
     </section>
