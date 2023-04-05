@@ -31,7 +31,7 @@ async function addComment(){
 
         content : state.comment.content,
         event : parseInt(route.params.id),
-        created_by : 1
+        created_by : "4638cbee-d3bd-11ed-94d3-0242ac150002"
     })
         .then(response => {
             alert(response.data.comment.content)

@@ -17,10 +17,6 @@ const state = reactive({
     status : '',
     eventFormVisible : false,
     currentDateTime : new Date(),
-    coordinates : [],
-    lat : 0.0,
-    long : 0.0,
-    date : ''
 
 
 })
@@ -55,7 +51,6 @@ async function getEvent(){
 
     })
     state.coordinates = await geocodeAddress(state.event.event_place);
-    state.date = new Date(state.event.event_date).toISOString();
 }
  function checkStatus(){
     if (state.currentDateTime> state.event.event_date){
@@ -63,8 +58,6 @@ async function getEvent(){
     } else {
          state.event.event_status = "à venir"
      }
-
-
 }
 function modeUpdateEvent() {
     state.eventFormVisible = true;
@@ -94,7 +87,6 @@ async function updateEvent(){
                 <div class="field">
                     <label class="label">Description</label>
 
-                    <input  class="input" v-model="state.event.event_description" id="{{state.event.event_description}}" type="text">
                     <input class="input" v-model="state.event.event_description" id="{{state.event.event_description}}" type="text">
                 </div>
                 <div class="field">
@@ -104,7 +96,7 @@ async function updateEvent(){
                 <div class="field">
                     <label class="label">Date</label>
 
-                    <input class="input" v-model="state.event.event_date" id="{{state.event.event_date}}" type="datetime-local">
+                    <input class="input"  v-model="state.event.event_date" id="{{state.date}}" type="text">
                 </div>
                 <button class="button is-link">
                     <span class="icon is-medium mr-2">
@@ -121,7 +113,6 @@ async function updateEvent(){
             <h3>Lieu : {{ state.event.event_place }} </h3>
             <h3>Statut : {{ state.event.event_status }} </h3>
 
-            <h3>Évènement créé par : {{ state.creator.firstname }} {{ state.creator.name }} </h3>
             <button class="button is-link mt-3" @click="modeUpdateEvent">
                 <span class="icon is-medium mr-2"><i class="fas fa-edit"></i></span>
                 Modifier l'évènement

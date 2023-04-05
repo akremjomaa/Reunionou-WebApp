@@ -19,7 +19,6 @@ let state = reactive({
     selectedUsers : []
 })
 onMounted(() => {
-    console.log(props)
     getInvitations()
     getUsers()
     getCurrentDateTime()

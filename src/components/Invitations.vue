@@ -1,7 +1,6 @@
 <script setup>
 
-import {useRoute} from "vue-router";
-import {inject, onMounted, reactive} from "vue";
+import { onMounted, reactive} from "vue";
 import axios from "axios";
 import {ref} from "@vue/reactivity";
 import {BASE} from "../../public/config";
@@ -9,21 +8,22 @@ const invitationList = ref([]);
 const usersList = ref([]);
 const count = ref(0);
 
-const props = defineProps(['eventId'])
+const props = defineProps(['idEvent'])
 let state = reactive({
     users : [],
 })
 onMounted(() => {
-    console.log(props)
+
     getInvitations()
     getUsers()
 
 });
 
 async function getInvitations(){
-    console.log(props.eventId)
-    await axios.get(`${BASE}/events/${props.eventId}/invitations`).then(response =>{
+
+    await axios.get(`${BASE}/events/${props.idEvent}/invitations`).then(response =>{
         invitationList.value= response.data.invitations;
+        console.log(invitationList.value)
         count.value = response.data.count;
     })
 }

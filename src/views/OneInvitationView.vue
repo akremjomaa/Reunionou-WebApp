@@ -1,19 +1,21 @@
 <script setup>
 
 import {useRoute} from "vue-router";
-import {inject, onMounted, reactive} from "vue";
+import { onMounted, reactive} from "vue";
 import axios from "axios";
 import Invitations from '@/components/Invitations.vue'
 import Comments from  '@/components/EventComments.vue'
 import {BASE} from "../../public/config";
+import {useUserStore} from "@/stores/user";
 const route = useRoute();
+const user = useUserStore();
 const state = reactive({
     invitation: {},
     event : {},
     invited : {},
     comments : [],
     status : false,
-    responseButtonVisible : true,
+    id:0,
     currentDateTime : new Date(),
 })
 onMounted(() => {
@@ -26,10 +28,15 @@ async function getInvitation(){
 
     await axios.get(`${BASE}/invitations/${route.params.id}?embed=event,invited`).then(response =>{
         state.invitation = response.data.invitation;
-        console.log(state.invitation)
+        state.id = response.data.invitation.event.id
         state.invited = response.data.invitation.invited;
         state.event = response.data.invitation.event;
-        state.id = response.data.invitation.event.id
+        if ((state.invitation.status === 'accepté') || (state.invitation.status === 'refusé'))
+        {
+            user.invitationStatus = true
+        }else{
+            user.invitationStatus = false
+        }
     })
 }
 function checkStatus(){
@@ -44,10 +51,8 @@ async function replyInvitation(newStatus){
         status : newStatus,
     }).then(response =>{
         console.log(response.data)
-        state.responseButtonVisible = false;
-        if ((state.invitation.status === 'accepté') ||(state.invitation.status === 'refusé')){
-            state.status = true
-        }
+        user.invitationStatus = true
+
 
     }).catch(error => {
         console.error(error);
@@ -65,7 +70,7 @@ function refuse() {
 
 <template>
     <main>
-        <div><h1>Mr/Ms {{state.invited.firstname}} {{state.invited.name}} vous etes invités à cet évènement :</h1></div>
+        <div><h1>Mr/Ms <b>{{state.invited.firstname}} {{state.invited.name}}</b> vous etes invités à cet évènement :</h1></div>
         <div>
             <h2>Titre : {{state.event.title}}</h2>
             <h3> Description : {{state.event.description}}</h3>
@@ -75,10 +80,10 @@ function refuse() {
         </div>
         <div>
             <div v-if="state.id !== 0">
-            <Invitations :eventId="state.id"></Invitations>
+            <Invitations :idEvent="state.id"></Invitations>
             </div>
         </div>
-        <div v-if="!(state.status)">
+        <div v-if="!(user.invitationStatus)">
             <p>Êtes-vous disponible pour cet événement ?</p>
             <button @click="accept">Accepter</button>
             <button @click="refuse">Refuser</button>
