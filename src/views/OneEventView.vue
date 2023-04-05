@@ -13,14 +13,14 @@ const state = reactive({
     event: {},
     id : 0,
     invitations : [],
-    creator : {},
     comments : [],
     status : '',
     eventFormVisible : false,
     currentDateTime : new Date(),
     coordinates : [],
     lat : 0.0,
-    long : 0.0
+    long : 0.0,
+    date : ''
 
 
 })
@@ -46,16 +46,16 @@ async function geocodeAddress(address) {
 
 async function getEvent(){
 
-    await axios.get(`${BASE}/events/${route.params.id}?embed=invitations,user,comments`).then(response =>{
+    await axios.get(`${BASE}/events/${route.params.id}?embed=invitations,comments`).then(response =>{
         console.log(response.data)
         state.event = response.data.event;
         state.id = response.data.event.id;
-        state.creator = response.data.event.user;
         state.invitations = response.data.event.invitations;
         state.comments = response.data.event.comments;
 
     })
     state.coordinates = await geocodeAddress(state.event.event_place);
+    state.date = new Date(state.event.event_date).toISOString();
 }
  function checkStatus(){
     if (state.currentDateTime> state.event.event_date){
@@ -93,6 +93,8 @@ async function updateEvent(){
                 </div>
                 <div class="field">
                     <label class="label">Description</label>
+
+                    <input  class="input" v-model="state.event.event_description" id="{{state.event.event_description}}" type="text">
                     <input class="input" v-model="state.event.event_description" id="{{state.event.event_description}}" type="text">
                 </div>
                 <div class="field">
@@ -101,6 +103,7 @@ async function updateEvent(){
                 </div>
                 <div class="field">
                     <label class="label">Date</label>
+
                     <input class="input" v-model="state.event.event_date" id="{{state.event.event_date}}" type="datetime-local">
                 </div>
                 <button class="button is-link">
@@ -117,6 +120,7 @@ async function updateEvent(){
             <h3>Date : {{ state.event.event_date }}</h3>
             <h3>Lieu : {{ state.event.event_place }} </h3>
             <h3>Statut : {{ state.event.event_status }} </h3>
+
             <h3>Évènement créé par : {{ state.creator.firstname }} {{ state.creator.name }} </h3>
             <button class="button is-link mt-3" @click="modeUpdateEvent">
                 <span class="icon is-medium mr-2"><i class="fas fa-edit"></i></span>

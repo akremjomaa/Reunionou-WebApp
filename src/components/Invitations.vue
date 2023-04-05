@@ -1,11 +1,10 @@
 <script setup>
 
 import {useRoute} from "vue-router";
-import {onMounted, reactive} from "vue";
+import {inject, onMounted, reactive} from "vue";
 import axios from "axios";
 import {ref} from "@vue/reactivity";
 import {BASE} from "../../public/config";
-
 const invitationList = ref([]);
 const usersList = ref([]);
 const count = ref(0);
@@ -20,6 +19,7 @@ onMounted(() => {
     getUsers()
 
 });
+
 async function getInvitations(){
     console.log(props.eventId)
     await axios.get(`${BASE}/events/${props.eventId}/invitations`).then(response =>{
@@ -34,6 +34,16 @@ async function getUsers(){
     })
 
 }
+
+function displayStatus(status){
+if (status === 'accepté'){
+    return 'a accepté(e)'
+}
+else if (status === 'refusé'){
+    return 'a refusé(e)'
+}
+else return 'en attente';
+}
 </script>
 
 <template>
@@ -44,7 +54,7 @@ async function getUsers(){
             <hr>
 
             <template v-for="invitation in invitationList" :key="invitation.id">
-                <div> <b> {{invitation.invited_name}} {{invitation.invited_firstName}}</b> {{invitation.invitation_status}}</div>
+                <div> <b> {{invitation.invited_name}} {{invitation.invited_firstName}}</b> {{displayStatus(invitation.status)}}</div>
             </template>
 
         </div>
