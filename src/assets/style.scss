@@ -14,9 +14,10 @@ $black: #393737;
 $family-sans-serif: 'Fredoka', sans-serif;
 $primary: $orange1;
 $link: $orange1;
+$info: $yellow;
 $text: $black;
 $body-background-color: #fafafa;
-$box-radius: 12px;
+$box-radius: 16px;
 $navbar-item-img-max-height: none;
 $section-padding: 3rem 1em;
 $section-padding-desktop: 3rem 1rem;
@@ -48,7 +49,10 @@ html::-webkit-scrollbar-thumb {
 a:hover{
   color: $yellow;
 }
-.button.is-link:hover, .button.is-primary:hover, .button.is-primary.is-outlined:hover{
+.button.is-link:hover, .button.is-primary:hover,{
+  background-color: $yellow;
+}
+.button.is-primary.is-outlined:hover{
   color: $yellow;
   border: 1px solid $yellow;
   background-color: transparent;

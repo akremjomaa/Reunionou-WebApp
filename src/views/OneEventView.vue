@@ -87,23 +87,31 @@ async function updateEvent(){
     <section class="column pt-6 is-10-tablet is-offset-1-tablet is-8-widescreen is-offset-2-widescreen">
         <div class="box" v-if="state.eventFormVisible">
             <form @submit.prevent="updateEvent">
-                <div>
+                <div class="field">
                     <label class="label">Titre</label>
                     <input class="input" v-model="state.event.event_title" id="{{state.event.event_title}}" type="text">
                 </div>
-                <div>
+                <div class="field">
                     <label class="label">Description</label>
+
                     <input  class="input" v-model="state.event.event_description" id="{{state.event.event_description}}" type="text">
+                    <input class="input" v-model="state.event.event_description" id="{{state.event.event_description}}" type="text">
                 </div>
-                <div>
+                <div class="field">
                     <label class="label">Lieu</label>
                     <input class="input" v-model="state.event.event_place" id="{{state.event.event_place}}" type="text">
                 </div>
-                <div>
+                <div class="field">
                     <label class="label">Date</label>
-                    <input class="input" v-model="state.event.event_date"  type="datetime-local">
+
+                    <input class="input" v-model="state.event.event_date" id="{{state.event.event_date}}" type="datetime-local">
                 </div>
-                <button class="button is-link">Enregistrer</button>
+                <button class="button is-link">
+                    <span class="icon is-medium mr-2">
+                        <i class="fas fa-save"></i>
+                    </span>
+                    Enregistrer
+                </button>
             </form>
         </div>
         <div class="box" v-else>
@@ -112,7 +120,12 @@ async function updateEvent(){
             <h3>Date : {{ state.event.event_date }}</h3>
             <h3>Lieu : {{ state.event.event_place }} </h3>
             <h3>Statut : {{ state.event.event_status }} </h3>
-            <button class="button is-link mt-3" @click="modeUpdateEvent">Modifier un évenement</button>
+
+            <h3>Évènement créé par : {{ state.creator.firstname }} {{ state.creator.name }} </h3>
+            <button class="button is-link mt-3" @click="modeUpdateEvent">
+                <span class="icon is-medium mr-2"><i class="fas fa-edit"></i></span>
+                Modifier l'évènement
+            </button>
         </div>
 
           <div v-if="state.id !== 0">
