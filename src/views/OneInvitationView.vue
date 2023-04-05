@@ -1,42 +1,33 @@
 <script setup>
 
 import {useRoute} from "vue-router";
-import {onMounted, reactive} from "vue";
+import {inject, onMounted, reactive} from "vue";
 import axios from "axios";
 import Invitations from '@/components/Invitations.vue'
 import Comments from  '@/components/EventComments.vue'
 import {BASE} from "../../public/config";
 const route = useRoute();
-
-
 const state = reactive({
     invitation: {},
     event : {},
     invited : {},
     comments : [],
-    status : '',
-    eventFormVisible : false,
-    event_date_us: {},
+    status : false,
+    responseButtonVisible : true,
     currentDateTime : new Date(),
-    coordinates : [],
-    lat : 0.0,
-    long : 0.0,
-    id : 0
-
-
 })
-
 onMounted(() => {
     getInvitation()
     checkStatus()
-});
 
+});
 
 async function getInvitation(){
 
-    await axios.get(`${BASE}/invitations/${route.params.id}?embed=event,user`).then(response =>{
+    await axios.get(`${BASE}/invitations/${route.params.id}?embed=event,invited`).then(response =>{
         state.invitation = response.data.invitation;
-        state.invited = response.data.invitation.user;
+        console.log(state.invitation)
+        state.invited = response.data.invitation.invited;
         state.event = response.data.invitation.event;
         state.id = response.data.invitation.event.id
     })
@@ -48,7 +39,27 @@ function checkStatus(){
         state.event.status = "à venir"
     }
 }
+async function replyInvitation(newStatus){
+    await axios.put(`${BASE}/invitations/${route.params.id}`,{
+        status : newStatus,
+    }).then(response =>{
+        console.log(response.data)
+        state.responseButtonVisible = false;
+        if ((state.invitation.status === 'accepté') ||(state.invitation.status === 'refusé')){
+            state.status = true
+        }
 
+    }).catch(error => {
+        console.error(error);
+    });
+}
+function accept() {
+    replyInvitation('accepté');
+}
+
+function refuse() {
+    replyInvitation('refusé');
+}
 
 </script>
 
@@ -66,6 +77,11 @@ function checkStatus(){
             <div v-if="state.id !== 0">
             <Invitations :eventId="state.id"></Invitations>
             </div>
+        </div>
+        <div v-if="!(state.status)">
+            <p>Êtes-vous disponible pour cet événement ?</p>
+            <button @click="accept">Accepter</button>
+            <button @click="refuse">Refuser</button>
         </div>
         <div>
             <Comments></Comments>

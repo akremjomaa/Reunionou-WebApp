@@ -13,14 +13,14 @@ const state = reactive({
     event: {},
     id : 0,
     invitations : [],
-    creator : {},
     comments : [],
     status : '',
     eventFormVisible : false,
     currentDateTime : new Date(),
     coordinates : [],
     lat : 0.0,
-    long : 0.0
+    long : 0.0,
+    date : ''
 
 
 })
@@ -46,16 +46,16 @@ async function geocodeAddress(address) {
 
 async function getEvent(){
 
-    await axios.get(`${BASE}/events/${route.params.id}?embed=invitations,user,comments`).then(response =>{
+    await axios.get(`${BASE}/events/${route.params.id}?embed=invitations,comments`).then(response =>{
         console.log(response.data)
         state.event = response.data.event;
         state.id = response.data.event.id;
-        state.creator = response.data.event.user;
         state.invitations = response.data.event.invitations;
         state.comments = response.data.event.comments;
 
     })
     state.coordinates = await geocodeAddress(state.event.event_place);
+    state.date = new Date(state.event.event_date).toISOString();
 }
  function checkStatus(){
     if (state.currentDateTime> state.event.event_date){
@@ -89,19 +89,19 @@ async function updateEvent(){
             <form @submit.prevent="updateEvent">
                 <div>
                     <label class="label">Titre</label>
-                    <input v-model="state.event.event_title" id="{{state.event.event_title}}" type="text">
+                    <input class="input" v-model="state.event.event_title" id="{{state.event.event_title}}" type="text">
                 </div>
                 <div>
                     <label class="label">Description</label>
-                    <input v-model="state.event.event_description" id="{{state.event.event_description}}" type="text">
+                    <input  class="input" v-model="state.event.event_description" id="{{state.event.event_description}}" type="text">
                 </div>
                 <div>
                     <label class="label">Lieu</label>
-                    <input v-model="state.event.event_place" id="{{state.event.event_place}}" type="text">
+                    <input class="input" v-model="state.event.event_place" id="{{state.event.event_place}}" type="text">
                 </div>
                 <div>
                     <label class="label">Date</label>
-                    <input v-model="state.event.event_date" id="{{state.event.event_date}}" type="datetime-local">
+                    <input class="input" v-model="state.event.event_date"  type="datetime-local">
                 </div>
                 <button class="button is-link">Enregistrer</button>
             </form>
@@ -112,7 +112,6 @@ async function updateEvent(){
             <h3>Date : {{ state.event.event_date }}</h3>
             <h3>Lieu : {{ state.event.event_place }} </h3>
             <h3>Statut : {{ state.event.event_status }} </h3>
-            <h3>Évènement créé par : {{ state.creator.firstname }} {{ state.creator.name }} </h3>
             <button class="button is-link mt-3" @click="modeUpdateEvent">Modifier un évenement</button>
         </div>
 
