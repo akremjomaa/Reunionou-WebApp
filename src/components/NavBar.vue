@@ -29,6 +29,7 @@ function logOut() {
     </div>
 
     <div class="navbar-menu" :class="{'is-active':state.menuOuvert}">
+
       <div v-if="navUserConnected.value" class="navbar-start">
         <router-link to="/user/:id/events" class="navbar-item">
           Mes évènements
@@ -40,6 +41,7 @@ function logOut() {
 
       <div class="navbar-end">
         <div class="navbar-item">
+
 
           <div v-if="navUserConnected.value" class="buttons my-0">
             <router-link to="/user/:id">

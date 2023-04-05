@@ -58,6 +58,12 @@ const router = createRouter({
       component: () => import('../views/OneEventView.vue'),
     },
     {
+
+      path: '/invitation/:id',
+      name: 'invitation',
+      component: () => import('../views/OneInvitationView.vue'),
+    },
+    {
       path: '/event/new',
       name: 'new-event',
       meta: { title: 'Créer un évènement' },

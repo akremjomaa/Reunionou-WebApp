@@ -8,43 +8,73 @@ import Comments from  '@/components/EventComments.vue'
 import {BASE} from "../../public/config";
 const route = useRoute();
 
+
 const state = reactive({
     event: {},
+    id : 0,
     invitations : [],
     creator : {},
     comments : [],
     status : '',
     eventFormVisible : false,
-    event_date_us: {}
+    currentDateTime : new Date(),
+    coordinates : [],
+    lat : 0.0,
+    long : 0.0
+
 
 })
 
 onMounted(() => {
-    console.log("one event view");
     getEvent()
-
+checkStatus()
 });
+
+async function geocodeAddress(address) {
+    const response = await axios.get(
+        `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
+            address
+        )}&format=json&limit=1`
+    );
+    if (response.data.length > 0) {
+        const { lat, lon } = response.data[0];
+        return [lat, lon];
+    } else {
+        throw new Error("Adresse introuvable");
+    }
+}
 
 async function getEvent(){
 
     await axios.get(`${BASE}/events/${route.params.id}?embed=invitations,user,comments`).then(response =>{
         console.log(response.data)
         state.event = response.data.event;
+        state.id = response.data.event.id;
         state.creator = response.data.event.user;
         state.invitations = response.data.event.invitations;
         state.comments = response.data.event.comments;
+
     })
+    state.coordinates = await geocodeAddress(state.event.event_place);
+}
+ function checkStatus(){
+    if (state.currentDateTime> state.event.event_date){
+        state.event.event_status = "déja passé"
+    } else {
+         state.event.event_status = "à venir"
+     }
+
+
 }
 function modeUpdateEvent() {
     state.eventFormVisible = true;
 }
 async function updateEvent(){
-    const isoDate = new Date(state.event.event_date).toISOString().slice(0, -1);
     await axios.put(`${BASE}/events/${route.params.id}`,{
         event_title : state.event.event_title,
         event_description :state.event.event_description,
         event_place : state.event.event_place,
-        event_date : isoDate
+        event_date : state.event.event_date
     }).then(response =>{
         console.log(response.data)
         state.eventFormVisible = false
@@ -86,11 +116,14 @@ async function updateEvent(){
             <button class="button is-link mt-3" @click="modeUpdateEvent">Modifier un évenement</button>
         </div>
 
-            <Invitations></Invitations>
+          <div v-if="state.id !== 0">
+                <Invitations :eventId="state.id"></Invitations>
+            </div>
 
             <Comments></Comments>
 
     </section>
+
 </template>
 <style scoped>
 

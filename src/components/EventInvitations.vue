@@ -11,6 +11,7 @@ const invitationList = ref([]);
 const usersList = ref([]);
 const count = ref(0);
 
+const props = defineProps(['eventId'])
 let state = reactive({
     userListVisible: false,
     users : [],
@@ -18,6 +19,7 @@ let state = reactive({
     selectedUsers : []
 })
 onMounted(() => {
+    console.log(props)
     getInvitations()
     getUsers()
     getCurrentDateTime()
@@ -27,10 +29,10 @@ onMounted(() => {
  function getCurrentDateTime() {
     const currentDate = new Date();
     state.currentDateTime = currentDate.toLocaleString();
-    console.log(state.currentDateTime)
 }
 async function getInvitations(){
-    await axios.get(`${BASE}/events/${route.params.id}/invitations`).then(response =>{
+     console.log(props.eventId)
+    await axios.get(`${BASE}/events/${props.eventId}/invitations`).then(response =>{
         invitationList.value= response.data.invitations;
         count.value = response.data.count;
     })
@@ -51,9 +53,9 @@ async function sendInvitations(){
 
    await axios.post(`${BASE}/invitations`, {
 
-                "invitation_date" : `${state.currentDateTime}`,
-                "invited" : selectedUsersData,
-                "event" : route.params.id
+       "invitation_date" : `${state.currentDateTime}`,
+                "invited" : [selectedUsersData[0].id],
+                "event" : parseInt(route.params.id)
 
     })
         .then(response => {
@@ -63,10 +65,6 @@ async function sendInvitations(){
         .catch(error => {
             console.log(error)
         })
-}
-
-async function updateEvent(){
-
 }
 
 </script>

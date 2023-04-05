@@ -22,13 +22,10 @@ async function validationFormulaire() {
         axios.post(`${BASE}/users/`, {
            firstname : member.firstname , name : member.name , email : member.email , password : member.password
         }).then(function (response){
-            console.log(checkPassword.value)
 
-            console.log(response)
             if (response.message) {
                 alert(response.message)
             } else {
-                console.log(response)
                 if (confirm("votre compte à été créé avec succés")) {
                     router.push('/connect');
 
