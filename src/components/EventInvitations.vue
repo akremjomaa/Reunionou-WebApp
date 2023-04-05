@@ -55,7 +55,7 @@ console.log(state.currentDateTime)
    await axios.post(`${BASE}/invitations`, {
 
                 "invited" : [selectedUsersData[0].id],
-                "event" : parseInt(route.params.id)
+                "event" : route.params.id
 
     })
         .then(response => {
