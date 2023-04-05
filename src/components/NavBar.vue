@@ -21,7 +21,7 @@ const state = reactive({
 
     <div class="navbar-menu" :class="{'is-active':state.menuOuvert}">
       <div class="navbar-start">
-        <router-link to="/user/2/events" class="navbar-item">
+        <router-link to="/user/1/events" class="navbar-item">
           Mes évènements
         </router-link>
         <router-link to="/user/1/invitations" class="navbar-item">
@@ -33,7 +33,7 @@ const state = reactive({
         <div class="navbar-item">
           <!--Navbar utilisateur connecté-->
           <div class="buttons my-0">
-            <router-link to="/user/2">
+            <router-link to="/user/1">
               <span class="icon is-large">
                 <i class="fas fa-2x fa-user"></i>
               </span>

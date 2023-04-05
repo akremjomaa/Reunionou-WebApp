@@ -15,12 +15,10 @@ onMounted(() => {
 })
 
 async  function getEvents() {
-    await axios.get(`${BASE}/users/2/events`).then(response =>{
-        console.log(response.data)
+    await axios.get(`${BASE}/users/1/events`).then(response =>{
         eventsList.value= response.data.events;
         count.value = response.data.count;
-        console.log(eventsList.value)
-        console.log(count.value)
+
 
     })
 }
