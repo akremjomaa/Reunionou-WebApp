@@ -1,29 +1,31 @@
-# Reunionou-Webapp
+# Reunionou-WebApp (Atelier n°2)
 
-This template should help get you started developing with Vue 3 in Vite.
+*Projet réalisé du 27 mars au 5 avril 2023*
 
-## Recommended IDE Setup
+## Récupérer le projet 
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+```sh
+git clone git@github.com:akremjomaa/Reunionou-WebApp.git
+cd Reunionou-WebApp
+```
 
-## Customize configuration
+## Initialisation
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
+### Installation des dépendances
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### Tester le site
 
 ```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
+## Collaborateurs
 
-```sh
-npm run build
-```
+- Akrem JOMAA ([@akremjomaa](https://github.com/akremjomaa))
+- Khaoula BOULHDIR ([@KhaoulaCode](https://github.com/KhaoulaCode))
+- Léo SIX ([@leosix10](https://github.com/leosix10))
+- Waïl ZIDANE ([@WZidane](https://github.com/WZidane))
