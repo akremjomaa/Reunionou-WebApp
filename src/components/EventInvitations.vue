@@ -60,7 +60,7 @@ console.log(state.currentDateTime)
     })
         .then(response => {
             console.log(response.data)
-            state.userListVisible = false
+            state.userListVisible = falsen
         })
         .catch(error => {
             console.log(error)
