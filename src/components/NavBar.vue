@@ -13,7 +13,8 @@ const navUserConnected = reactive({
     })
 function logOut() {
     if(!confirm('Voulez-vous vraiment vous déconnecter ?')) return;
-    session.endSession();
+    user.state.TOKEN = '';
+    user.state.USER = '';
     router.push('/');
 }
 </script>
@@ -33,7 +34,7 @@ function logOut() {
 
     <div class="navbar-menu" :class="{'is-active':state.menuOuvert}">
 
-      <div class="navbar-start">
+      <div class="navbar-start" v-if="user.state.USER !== ''">
         <router-link :to="`/user/${user.state.USER}/events`" class="navbar-item">
             <span class="icon is-medium mr-1">
                 <i class="fas fa-calendar-alt"></i>
@@ -52,7 +53,7 @@ function logOut() {
         <div class="navbar-item">
 
 
-          <div class="buttons my-0">
+          <div class="buttons my-0" v-if="user.state.USER !== ''">
             <router-link to="/event/new" class="button is-primary my-1 pl-4">
             <span class="icon is-medium mr-2">
               <i class="fas fa-plus"></i>
@@ -65,7 +66,7 @@ function logOut() {
               </span>
               Mon compte
             </router-link>
-            <router-link v-if="navUserConnected.value" @click="logOut" to="/" class="button is-primary is-outlined my-1 pl-4">
+            <router-link @click="logOut" to="/" class="button is-primary is-outlined my-1 pl-4">
               <span class="icon is-medium mr-2">
                 <i class="fas fa-power-off"></i>
               </span>
@@ -74,7 +75,7 @@ function logOut() {
           </div>
           
 
-          <div class="buttons my-0">
+          <div class="buttons my-0" v-if="user.state.USER === ''">
             <router-link to="/inscription" class="button is-primary my-1 pl-4">
                 <span class="icon is-medium mr-2">
                     <i class="fas fa-user-plus"></i>

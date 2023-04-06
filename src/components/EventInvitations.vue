@@ -5,8 +5,10 @@ import {onMounted, reactive} from "vue";
 import axios from "axios";
 import {ref} from "@vue/reactivity";
 import {BASE} from "../../public/config";
+import {useUserStore} from "../stores/user";
 
 const route = useRoute();
+const usera = useUserStore();
 const invitationList = ref([]);
 const usersList = ref([]);
 const count = ref(0);
@@ -25,12 +27,21 @@ onMounted(() => {
 
 });
 
+function displayStatus(status){
+    if (status === 'accepté'){
+        return 'a accepté(e)'
+    }
+    else if (status === 'refusé'){
+        return 'a refusé(e)'
+    }
+    else return 'en attente';
+}
+
  function getCurrentDateTime() {
     const currentDate = new Date();
     state.currentDateTime = currentDate.toLocaleString();
 }
 async function getInvitations(){
-     console.log(props.eventId)
     await axios.get(`${BASE}/events/${props.eventId}/invitations`).then(response =>{
         invitationList.value= response.data.invitations;
         count.value = response.data.count;
@@ -38,7 +49,7 @@ async function getInvitations(){
 }
 async function getUsers(){
     await axios.get(`${BASE}/users`).then(response =>{
-        state.users = response.data.users.filter(user => user.id !== 2);
+        state.users = response.data.users.filter(user => user.id !== usera.state.USER);
         usersList.value= state.users;
     })
 
@@ -49,9 +60,6 @@ function modeInviteMembers() {
 
 async function sendInvitations(){
     const selectedUsersData = usersList.value.filter(user => state.selectedUsers.includes(user.id))
-console.log(state.currentDateTime)
-    console.log(selectedUsersData[0].id)
-    console.log(route.params.id)
    await axios.post(`${BASE}/invitations`, {
 
                 "invited" : [selectedUsersData[0].id],
@@ -59,8 +67,7 @@ console.log(state.currentDateTime)
 
     })
         .then(response => {
-            console.log(response.data)
-            state.userListVisible = falsen
+            state.userListVisible = false
         })
         .catch(error => {
             console.log(error)
@@ -74,7 +81,7 @@ console.log(state.currentDateTime)
             <h2 class="subtitle is-4"> Liste des invités ({{count}})</h2>
 
             <template v-for="invitation in invitationList" :key="invitation.id">
-               <div> <b> {{invitation.invited_name}} {{invitation.invited_firstName}}</b> {{invitation.invitation_status}}</div>
+               <div> <b> {{invitation.invited_name}} {{invitation.invited_firstName}}</b> {{displayStatus(invitation.invitation_status)}}</div>
             </template>
              <button class="button is-link mt-3" @click="modeInviteMembers">
                  <span class="icon is-medium mr-2"><i class="fas fa-user-plus"></i></span>

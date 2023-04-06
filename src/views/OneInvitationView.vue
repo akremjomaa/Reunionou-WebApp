@@ -37,6 +37,7 @@ export default {
                     state.id = response.data.invitation.event.id;
                     state.invited = response.data.invitation.invited;
                     state.event = response.data.invitation.event;
+                    console.log(state.invitation);
                     if (
                         state.invitation.status === "accepté" ||
                         state.invitation.status === "refusé"
@@ -91,9 +92,7 @@ export default {
 </script>
 
 <template>
-    <section
-        class="column pt-6 is-10-tablet is-offset-1-tablet is-8-widescreen is-offset-2-widescreen"
-    >
+    <section class="column pt-6 is-10-tablet is-offset-1-tablet is-8-widescreen is-offset-2-widescreen">
         <h1 class="title is-2 has-text-centered">
             Mr/Ms <b>{{ state.invited.firstname }} {{ state.invited.name }}</b> vous
             êtes invités à cet évènement :

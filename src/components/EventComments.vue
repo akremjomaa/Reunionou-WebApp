@@ -5,8 +5,10 @@ import {inject, onMounted, reactive} from "vue";
 import axios from "axios";
 import {ref} from "@vue/reactivity";
 import {BASE} from "../../public/config";
+import {useUserStore} from "../stores/user";
 
 const route = useRoute();
+const user = useUserStore();
 const commentList = ref([]);
 const count = ref(0);
 const state = reactive({
@@ -34,7 +36,7 @@ async function addComment(){
 
         content : state.comment.content,
         event : props.id,
-        created_by : "4638cbee-d3bd-11ed-94d3-0242ac150002"
+        created_by : user.state.USER
     })
         .then(response => {
             alert(response.data.comment.content)

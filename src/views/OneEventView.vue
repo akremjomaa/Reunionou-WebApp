@@ -2,8 +2,8 @@
 import {useRoute} from "vue-router";
 import {reactive} from "vue";
 import axios from "axios";
-import Invitations from '@/components/EventInvitations.vue'
-import Comments from  '@/components/EventComments.vue'
+import Invitations from '../components/EventInvitations.vue'
+import Comments from  '../components/EventComments.vue'
 import {BASE} from "../../public/config";
 import "leaflet/dist/leaflet.css";
 import {LMap, LMarker, LTileLayer} from "@vue-leaflet/vue-leaflet";
@@ -26,7 +26,7 @@ export default {
             route: useRoute(),
             state: reactive({
                 event: {},
-                id: user.state.USER,
+                id: 0,
                 invitations: [],
                 comments: [],
                 status: '',
@@ -62,27 +62,11 @@ export default {
                    this.state.lieu = response.data.features[0].properties.label
                }
            }).catch(error => console.log(error));
-
-
-            this.map.on('click', async event => {
-                if (this.marker) {
-                    this.marker.setLatLng(event.latlng);
-                    this.state.lat = event.latlng.lat
-                    this.state.lon = event.latlng.lng
-                    this.state.lieu = `${this.state.lat},${this.state.lon}`
-                    await axios.get(`https://api-adresse.data.gouv.fr/reverse/?lon=${this.state.lon}&lat=${this.state.lat}`).then(response => {
-                        if (response.data.features[0]) {
-                            this.marker.bindPopup(`${response.data.features[0].properties.label}`).openPopup();
-                        }
-                    }).catch(error => console.log(error));
-                }
-            });
         },
         //
 
         async getEvent() {
             await axios.get(`${BASE}/events/${this.route.params.id}/?embed=invitations,comments`).then(response => {
-                console.log(response.data)
                 this.state.event = response.data.event;
                 this.state.id = response.data.event.id;
                 this.state.invitations = response.data.event.invitations;
@@ -116,7 +100,6 @@ export default {
                 event_place: this.state.event.event_place,
                 event_date: this.state.event.event_date
             }).then(response => {
-                console.log(response.data)
                 this.state.eventFormVisible = false
             })
         },
@@ -170,7 +153,9 @@ export default {
             <Invitations :eventId="state.id"></Invitations>
         </div>
 
-        <Comments></Comments>
+        <div v-if="state.id !== 0">
+        <Comments :id="state.id"></Comments>
+        </div>
         <div class="my-4 leaflet-reunionou" id="map" ref="map"></div>
 
     </section>
