@@ -31,7 +31,7 @@ export default {
 
         async function getInvitation() {
             await axios
-                .get(`${BASE}/invitations/${user.state.USER}?embed=event,invited`)
+                .get(`${BASE}/invitations/${route.params.id}?embed=event,invited`)
                 .then((response) => {
                     state.invitation = response.data.invitation;
                     state.id = response.data.invitation.event.id;
@@ -58,7 +58,7 @@ export default {
 
         async function replyInvitation(newStatus) {
             await axios
-                .put(`${BASE}/invitations/${user.state.USER}`, {
+                .put(`${BASE}/invitations/${route.params.id}`, {
                     status: newStatus,
                 })
                 .then((response) => {

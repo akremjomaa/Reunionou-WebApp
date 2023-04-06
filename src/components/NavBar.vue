@@ -1,9 +1,12 @@
 <script setup>
 import { reactive } from 'vue'
+import {useUserStore} from "../stores/user";
 
 const state = reactive({
     menuOuvert: false
 });
+
+const user = useUserStore();
 
 const navUserConnected = reactive({
     value: false
@@ -31,13 +34,13 @@ function logOut() {
     <div class="navbar-menu" :class="{'is-active':state.menuOuvert}">
 
       <div class="navbar-start">
-        <router-link to="/user/:id/events" class="navbar-item">
+        <router-link :to="`/user/${user.state.USER}/events`" class="navbar-item">
             <span class="icon is-medium mr-1">
                 <i class="fas fa-calendar-alt"></i>
             </span>
           Mes évènements
         </router-link>
-        <router-link to="/user/:id/invitations" class="navbar-item">
+        <router-link :to="`/user/${user.state.USER}/invitations`" class="navbar-item">
             <span class="icon is-medium mr-1">
                 <i class="fas fa-envelope"></i>
             </span>
@@ -49,20 +52,20 @@ function logOut() {
         <div class="navbar-item">
 
 
-          <div v-if="navUserConnected.value" class="buttons my-0">
+          <div class="buttons my-0">
             <router-link to="/event/new" class="button is-primary my-1 pl-4">
             <span class="icon is-medium mr-2">
               <i class="fas fa-plus"></i>
             </span>
                 Créer un évènement
             </router-link>
-            <router-link to="/user/:id" class="button is-primary is-outlined my-1 pl-4">
+            <router-link :to="`/user/${user.state.USER}`" class="button is-primary is-outlined my-1 pl-4">
               <span class="icon is-medium mr-2">
                 <i class="fas fa-user"></i>
               </span>
               Mon compte
             </router-link>
-            <router-link @click="logOut" to="/" class="button is-primary is-outlined my-1 pl-4">
+            <router-link v-if="navUserConnected.value" @click="logOut" to="/" class="button is-primary is-outlined my-1 pl-4">
               <span class="icon is-medium mr-2">
                 <i class="fas fa-power-off"></i>
               </span>
