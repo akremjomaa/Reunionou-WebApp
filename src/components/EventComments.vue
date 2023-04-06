@@ -21,8 +21,8 @@ onMounted(() => {
 });
 
 async function getComments(){
-    console.log(props.eventId)
-    await axios.get(`${BASE}/events/${props.eventId}/comments`).then(response =>{
+    console.log(props.id)
+    await axios.get(`${BASE}/events/${props.id}/comments`).then(response =>{
         commentList.value= response.data.comments;
         count.value = response.data.count;
 
@@ -33,7 +33,7 @@ async function addComment(){
     await axios.post(`${BASE}/comments`, {
 
         content : state.comment.content,
-        event : route.params.id,
+        event : props.id,
         created_by : "4638cbee-d3bd-11ed-94d3-0242ac150002"
     })
         .then(response => {

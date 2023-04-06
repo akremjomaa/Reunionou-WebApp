@@ -117,9 +117,9 @@ export default {
                 Refuser
             </button>
         </div>
-
+        <div v-if="state.id !== 0">
             <EventComments :id="state.id"> </EventComments>
-
+        </div>
     </section>
 </template>
 <style scoped>
