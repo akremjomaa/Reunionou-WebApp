@@ -3,9 +3,11 @@ import { onMounted } from '@vue/runtime-core';
 import axios from "axios";
 import {ref} from "@vue/reactivity";
 import {BASE} from "../../public/config";
+import {useUserStore} from "../stores/user";
 
 const eventsList = ref([]);
 const count = ref(0);
+const user = useUserStore();
 
 onMounted(() => {
 
@@ -15,7 +17,8 @@ onMounted(() => {
 })
 
 async  function getEvents() {
-    await axios.get(`${BASE}/users/2/events`).then(response =>{
+
+    await axios.get(`${BASE}/users/${user.state.USER}/events`).then(response =>{
         eventsList.value= response.data.events;
         count.value = response.data.count;
 
