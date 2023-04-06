@@ -3,6 +3,7 @@ import { ref } from '@vue/reactivity';
 import { useRouter } from 'vue-router';
 import {reactive} from "vue";
 import axios from "axios";
+import {BASE} from "../../public/config";
 
 const router = useRouter()
 
@@ -18,16 +19,13 @@ async function validationFormulaire() {
         alert("les mots de passe ne sont pas compatibles ! vérifiez de nouveau !")
     }
     else {
-        axios.post('https://api.reunionou.local:19043/users/', {
+        axios.post(`${BASE}/users/`, {
            firstname : member.firstname , name : member.name , email : member.email , password : member.password
         }).then(function (response){
-            console.log(checkPassword.value)
 
-            console.log(response)
             if (response.message) {
                 alert(response.message)
             } else {
-                console.log(response)
                 if (confirm("votre compte à été créé avec succés")) {
                     router.push('/connect');
 
@@ -42,10 +40,9 @@ async function validationFormulaire() {
 </script>
 
 <template>
-    <main>
-        <h1>Bienvenue à Reunionou</h1>
-        <h2> Créer un compte</h2>
-        <form @submit.prevent="validationFormulaire">
+    <section class="column pt-6 is-10-tablet is-offset-1-tablet is-8-desktop is-offset-2-desktop is-6-widescreen is-offset-3-widescreen is-4-fullhd is-offset-4-fullhd">
+        <h1 class="title is-2 has-text-centered">Créer un compte</h1>
+        <form @submit.prevent="validationFormulaire" class="box">
             <div class="field">
                 <label class="label">Nom</label>
                 <div class="control">
@@ -77,20 +74,25 @@ async function validationFormulaire() {
             </div>
             <div class="field">
                 <label class="label">Confirmer mot de passe</label>
-                <div class="control has-icons-left has-icons-right">
+                <div class="control">
                     <input class="input" v-model="checkPassword" required="required" type="password"
-                        placeholder="Répeter votre Mot de passe ici">
+                        placeholder="Répetez votre Mot de passe ici">
                 </div>
             </div>
-            <div class="field is-grouped">
-                <div class="control">
-                    <button class="button is-link" type="submit">Créer votre compte </button>
+            <div class="field">
+                <div class="control is-flex is-justify-content-center mt-4">
+                    <button class="button is-link" type="submit">
+                        <span class="icon is-medium mr-2">
+                            <i class="fas fa-user-plus"></i>
+                        </span>
+                        Créer votre compte
+                    </button>
                 </div>
             </div>
         </form>
-        <div>
-            <p>Vous avez deja un compte ?</p><router-link to="/connect">Connexion</router-link>
+        <div class="has-text-centered">
+            <p>Vous avez deja un compte ?</p><router-link to="/connexion">Connexion</router-link>
         </div>
 
-    </main>
+    </section>
 </template>
