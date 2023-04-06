@@ -8,6 +8,9 @@ import {BASE} from "../../public/config";
 import "leaflet/dist/leaflet.css";
 import {LMap, LMarker, LTileLayer} from "@vue-leaflet/vue-leaflet";
 import L from "leaflet";
+import {useUserStore} from "../stores/user";
+
+const user =  useUserStore();
 
 export default {
     name: "EventDetail",
@@ -23,7 +26,7 @@ export default {
             route: useRoute(),
             state: reactive({
                 event: {},
-                id: 0,
+                id: user.state.USER,
                 invitations: [],
                 comments: [],
                 status: '',
@@ -78,7 +81,7 @@ export default {
         //
 
         async getEvent() {
-            await axios.get(`${BASE}/events/${this.route.params.id}?embed=invitations,comments`).then(response => {
+            await axios.get(`${BASE}/events/${this.route.params.id}/?embed=invitations,comments`).then(response => {
                 console.log(response.data)
                 this.state.event = response.data.event;
                 this.state.id = response.data.event.id;

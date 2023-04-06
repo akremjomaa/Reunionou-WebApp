@@ -4,6 +4,9 @@ import {LMap, LTileLayer, LMarker} from "@vue-leaflet/vue-leaflet";
 import L from 'leaflet';
 import axios from "axios";
 import router from "../router";
+import {useUserStore} from "../stores/user";
+
+const user = useUserStore();
 
 export default {
     components: {
@@ -18,7 +21,7 @@ export default {
             selected: '',
             loading: false,
             e: {
-                id: 2,
+                id: user.state.USER,
                 titre: '',
                 descri: '',
                 adresse: '',

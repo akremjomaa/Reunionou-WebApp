@@ -1,6 +1,7 @@
 import { reactive } from "vue";
 import { defineStore } from "pinia";
 import { useRouter } from "vue-router";
+import {ref} from "@vue/reactivity";
 
 export const useUserStore = defineStore('user', () => {
  const invitationStatus = ref(false);
