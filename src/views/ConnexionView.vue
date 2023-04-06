@@ -3,18 +3,30 @@ import axios from 'axios';
 import { useUserStore } from '../stores/user';
 import { BASE } from '../../public/config';
 import { reactive } from 'vue';
+import {useRouter} from "vue-router";
 
+const router = useRouter();
 
 const user = useUserStore();
 
 const state = reactive({
     email: '',
-    password: ''
+    password: '',
+    error: ''
 })
 
 async function connect() {
-    await axios.post(`http://api.auth.local:19780/v1/signin`, { email: state.email, password: state.password }).then((response) => {
-        console.log(response);
+    await axios.post(`http://api.auth.local:19780/v1/signin`, {}, {auth: { username: state.email, password: state.password} }).then((response) => {
+        user.state.TOKEN = response.data['access-token'];
+    }).then(async (response) => {
+        await axios.get(`http://api.auth.local:19780/v1/validate`, {
+            headers: { Authorization: `Bearer ${user.state.TOKEN}` }
+        }).then(async (response) => {
+            user.state.USER = response.data.id;
+            await router.push(`/user/${user.state.USER}/events`)
+        }).catch((error) => {
+            state.error = "Erreur, adresse e-mail ou mot de passe incorrect !";
+        })
     })
 }
 
@@ -36,7 +48,9 @@ async function connect() {
                     <input class="input" required="required" v-model="state.password" type="password" placeholder="Votre mot de passe">
                 </div>
             </div>
-
+            <div v-if="state.error !== ''">
+                {{ state.error }}
+            </div>
             <div class="is-flex is-flex-direction-column is-align-items-center">
                 <button class="button is-link mb-3" type="submit">
                     <span class="icon is-medium mr-2">

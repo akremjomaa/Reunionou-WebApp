@@ -5,11 +5,12 @@ import {useRoute} from "vue-router";
 import axios from "axios";
 import router from "../router";
 import {BASE} from "../../public/config";
+import {useUserStore} from "../stores/user";
 
 const route = useRoute();
+const user = useUserStore();
 
 let member = reactive({
-    id: {},
     lastname: '',
     firstname: '',
     email: '',
@@ -22,7 +23,7 @@ onMounted(() => {
 });
 
 async function putUser() {
-    await axios.put(`http://api.reunionou.local:19080/users/${route.params.id}`, {
+    await axios.put(`http://api.reunionou.local:19080/users/${user.state.USER}`, {
         name: member.lastname,
         firstname: member.firstname,
         email: member.email,
@@ -31,13 +32,11 @@ async function putUser() {
         console.log(response);
     }).catch(error => console.log(error));
 
-    await router.push(`/user/${member.id}`);
+    await router.push(`/user/${user.state.USER}`);
 }
 
 async function getUser() {
-    await axios.get(`${BASE}/users/${route.params.id}`).then(response => {
-        console.log(response.data.user);
-        member.id = response.data.user.id;
+    await axios.get(`${BASE}/users/${user.state.USER}`).then(response => {
         member.lastname = response.data.user.lastname;
         member.firstname = response.data.user.firstname;
         member.email = response.data.user.email;
