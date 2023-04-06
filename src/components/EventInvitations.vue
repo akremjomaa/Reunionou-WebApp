@@ -19,7 +19,6 @@ let state = reactive({
     selectedUsers : []
 })
 onMounted(() => {
-    console.log(props)
     getInvitations()
     getUsers()
     getCurrentDateTime()
@@ -39,7 +38,7 @@ async function getInvitations(){
 }
 async function getUsers(){
     await axios.get(`${BASE}/users`).then(response =>{
-        state.users = response.data.users.filter(user => user.id !== 1);
+        state.users = response.data.users.filter(user => user.id !== 2);
         usersList.value= state.users;
     })
 
@@ -50,17 +49,18 @@ function modeInviteMembers() {
 
 async function sendInvitations(){
     const selectedUsersData = usersList.value.filter(user => state.selectedUsers.includes(user.id))
-
+console.log(state.currentDateTime)
+    console.log(selectedUsersData[0].id)
+    console.log(route.params.id)
    await axios.post(`${BASE}/invitations`, {
 
-       "invitation_date" : `${state.currentDateTime}`,
                 "invited" : [selectedUsersData[0].id],
-                "event" : parseInt(route.params.id)
+                "event" : route.params.id
 
     })
         .then(response => {
             console.log(response.data)
-            state.userListVisible = false
+            state.userListVisible = falsen
         })
         .catch(error => {
             console.log(error)

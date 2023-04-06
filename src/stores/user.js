@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 import { useRouter } from "vue-router";
 
 export const useUserStore = defineStore('user', () => {
+ const invitationStatus = ref(false);
     const state = reactive({
         TOKEN: '',
         USER: ''
@@ -20,7 +21,7 @@ export const useUserStore = defineStore('user', () => {
         router.push('/connexion');
     }
 
-    return {state, connexion, sedeconnecter};
+    return {state, connexion, sedeconnecter,invitationStatus};
 }, {
     persist: true,
 })

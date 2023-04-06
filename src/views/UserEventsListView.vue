@@ -17,6 +17,7 @@ onMounted(() => {
 })
 
 async  function getEvents() {
+
     await axios.get(`${BASE}/users/${user.state.USER}/events`).then(response =>{
         eventsList.value= response.data.events;
         count.value = response.data.count;
