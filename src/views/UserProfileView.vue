@@ -5,10 +5,12 @@ import {useRoute} from "vue-router";
 import axios from "axios";
 import router from "../router";
 import {BASE} from "../../public/config";
+import {useUserStore} from "../stores/user";
+
+const user = useUserStore();
 
 const route = useRoute();
 let member = reactive({
-    id: {},
     lastname: '',
     firstname: '',
     email: '',
@@ -22,9 +24,7 @@ onMounted(() => {
 });
 
 async function getUser() {
-    await axios.get(`${BASE}/users/${route.params.id}`).then(response => {
-        console.log(response.data.user);
-        member.id = response.data.user.id;
+    await axios.get(`${BASE}/users/${user.state.USER}`).then(response => {
         member.lastname = response.data.user.lastname;
         member.firstname = response.data.user.firstname;
         member.email = response.data.user.email;
@@ -35,7 +35,7 @@ async function getUser() {
 
 async function deleteAccount() {
     if (confirm("Voulez-vous vraiment supprimer votre compte ?")) {
-        axios.delete(`https://api.reunionou.local:19043/users/${member.id}`).catch((error) => {
+        axios.delete(`https://api.reunionou.local:19043/users/${user.state.USER}`).catch((error) => {
             console.log(error);
         }).then(async () => {
             await router.push('/');

@@ -3,9 +3,15 @@ import { onMounted } from '@vue/runtime-core';
 import axios from "axios";
 import {ref} from "@vue/reactivity";
 import {BASE} from "../../public/config";
+import {reactive} from "vue";
+import {useUserStore} from "../stores/user";
 
 const invitationsList = ref([]);
 const count = ref(0);
+const user = useUserStore();
+let state = reactive({
+    inv : []
+})
 
 onMounted(() => {
     getInvitations()
@@ -13,7 +19,9 @@ onMounted(() => {
 })
 
 async  function getInvitations() {
-    await axios.get(`${BASE}/users/2/invitations`).then(response =>{
+
+    await axios.get(`${BASE}/users/${user.state.USER}/invitations`).then(response =>{
+    
         invitationsList.value= response.data.invitations;
 
         count.value = response.data.count;

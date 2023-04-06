@@ -1,17 +1,27 @@
-import { ref } from 'vue'
-import { defineStore } from 'pinia'
-
+import { reactive } from "vue";
+import { defineStore } from "pinia";
+import { useRouter } from "vue-router";
 
 export const useUserStore = defineStore('user', () => {
-    const invitationStatus = ref(false);
+ const invitationStatus = ref(false);
+    const state = reactive({
+        TOKEN: '',
+        USER: ''
+    });
 
-    /*function accepted() {
-        invitationStatus.value = 'accepté';
+    const router = useRouter();
+
+    function connexion() {
+        router.push('/connexion');
     }
-    function refused() {
-        invitationStatus.value = 'refusé';
-    }*/
-    return { invitationStatus }
+
+    function sedeconnecter() {
+        state.TOKEN = '';
+        state.USER = '';
+        router.push('/connexion');
+    }
+
+    return {state, connexion, sedeconnecter,invitationStatus};
 }, {
     persist: true,
 })
