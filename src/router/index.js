@@ -58,9 +58,9 @@ const router = createRouter({
       component: () => import('../views/OneEventView.vue'),
     },
     {
-
       path: '/invitation/:id',
       name: 'invitation',
+      meta: { title: 'Invitation' },
       component: () => import('../views/OneInvitationView.vue'),
     },
     {
